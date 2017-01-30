@@ -98,10 +98,10 @@ $ git clone https://github.com/ivans-innovation-lab/my-company-monolithic-web.gi
 
 This application depends on other librariries (please make them available in your local maven repository):
 
-- [my-company-blog-domain](https://github.com/ivans-innovation-lab/my-company-blog-domain.git)
-- [my-company-project-domain](https://github.com/ivans-innovation-lab/my-company-project-domain.git)
-- [my-company-blog-materialized-view](https://github.com/ivans-innovation-lab/my-company-blog-materialized-view.git)
-- [my-company-project-materialized-view](https://github.com/ivans-innovation-lab/my-company-project-materialized-view.git)
+- [my-company-blog-domain (**command-side**)](https://github.com/ivans-innovation-lab/my-company-blog-domain.git)
+- [my-company-project-domain (**command-side**)](https://github.com/ivans-innovation-lab/my-company-project-domain.git)
+- [my-company-blog-materialized-view (**query-side**)](https://github.com/ivans-innovation-lab/my-company-blog-materialized-view.git)
+- [my-company-project-materialized-view (**query-side**)](https://github.com/ivans-innovation-lab/my-company-project-materialized-view.git)
 
 
 ### Step 3: Run it
