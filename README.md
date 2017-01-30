@@ -101,7 +101,7 @@ This application depends on other librariries (please make them available in you
 - [my-company-blog-domain](https://github.com/ivans-innovation-lab/my-company-blog-domain.git)
 - [my-company-project-domain](https://github.com/ivans-innovation-lab/my-company-project-domain.git)
 - [my-company-blog-materialized-view](https://github.com/ivans-innovation-lab/my-company-blog-materialized-view.git)
-- [my-company-project-materialized-view[(https://github.com/ivans-innovation-lab/my-company-project-materialized-view.git)
+- [my-company-project-materialized-view](https://github.com/ivans-innovation-lab/my-company-project-materialized-view.git)
 
 
 ### Step 3: Run it
