@@ -11,9 +11,6 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
       * [Technologies](#technologies)
       * [Key benefits](#key-benefits)
       * [How it works](#how-it-works)
-      * [Components](#components)
-         * [Blog](#blog)
-         * [Project](#project)
       * [Running instructions](#running-instructions)
          * [Prerequisite](#prerequisite)
          * [Step 1: Clone the project](#step-1-clone-the-project)
@@ -61,24 +58,15 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
 
 ## How it works
 
-The domain is literally split into a *command-side* component and a *query-side* component (this is CQRS in its most literal form).
+The application is literally split into a *command-side (domain)* component and a *query-side (materialized view)* component (this is CQRS in its most literal form).
 
 Communication between the two components is `event-driven` and the demo uses simple event store (Database in this case - JPA) as a means of passing the events between components.
 
-The **command-side** processes commands. Commands are actions which change state in some way. The execution of these commands results in `Events` being generated which are persisted by Axon, and propagated out to components. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.
+The **command-side (domain)** processes commands. Commands are actions which change state in some way. The execution of these commands results in `Events` being generated which are persisted by Axon, and propagated out to other components. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build domain aggregates on demand, one event at a time.
 
-The **query-side** is an event-listener and processor. It listens for the `Events` and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a *materialised view* which tracks the state of the individual agregates (Product, Blog, ...).
+The **query-side (materialized view)** is an event-listener and processor. It listens for the `Events` and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a *materialised view* which tracks the state of the individual agregates (Product, Blog, ...).
 
-The command-side and the query-side both have REST API's which can be used to access their capabilities.
-
-
-## Components
-
-### Blog
-A Blog component is used for manging and quering the posts of your company. It is split into a *command-side* component and a *query-side* component.
-
-### Project
-A Project component is used for manging and quering the projects of your company. It is split into a *command-side* component and a *query-side* component.
+This application have REST API's which can be used to access capabilities of a the domain and all materialized views.
 
 
 ## Running instructions
@@ -227,16 +215,12 @@ Those days, each mature framework in Java world should have some sort of Spring 
 
 ## References and further reading
 
-  * http://martinfowler.com/articles/microservices.html
   * http://microservices.io/
   * http://www.slideshare.net/chris.e.richardson/developing-eventdriven-microservices-with-event-sourcing-and-cqrs-phillyete
   * http://12factor.net/
   * http://pivotal.io/platform/migrating-to-cloud-native-application-architectures-ebook
   * http://pivotal.io/beyond-the-twelve-factor-app
-  * http://www.infoq.com/news/2016/01/cqrs-axon-example
   * http://www.axonframework.org
-  * http://blog.arungupta.me/docker-swarm-cluster-using-consul/
-  * https://blog.docker.com/2016/02/containers-as-a-service-caas/
   * http://www.kennybastani.com/2016/04/event-sourcing-microservices-spring-cloud.html
   * https://benwilcock.wordpress.com/2016/06/20/microservices-with-spring-boot-axon-cqrses-and-docker/
   
