@@ -16,6 +16,8 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
          * [Step 1: Clone the project](#step-1-clone-the-project)
          * [Step 2: Build the project](#step-2-build-the-project)
          * [Step 3: Run it](#step-3-run-it)
+         * [Step 4: Frontend and Angular2](#step-4-optional-frontend--angular-2)
+         * [Browser](#browser)
          * [Issuing Commands &amp; Queries with CURL](#issuing-commands--queries-with-curl)
             * [Create Blog post](#create-blog-post)
             * [Publish Blog post](#publish-blog-post)
