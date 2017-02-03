@@ -99,8 +99,18 @@ $ cd my-company-monolithic-web
 $ ./mvnw spring-boot:run
 ```
 
+### Step 4 (optional): Frontend & Angular 2
+
+https://github.com/ivans-innovation-lab/my-company-monolithic-web/tree/master/src/main/frontend
+
+### Browser
+
+http://localhost:8080
+
+
 
 ### Issuing Commands & Queries with CURL
+
 
 #### Create Blog post
 
