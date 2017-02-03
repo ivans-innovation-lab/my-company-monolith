@@ -62,11 +62,17 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
 
 The application is literally split into a *command-side (domain)* component and a *query-side (materialized view)* component (this is CQRS in its most literal form).
 
-Communication between the two components is `event-driven` and the demo uses simple event store (Database in this case - JPA) as a means of passing the events between components.
+Communication between the two components is `event-driven` and the demo uses simple event store (Database in this case - JPA) as a means of passing the [events](https://github.com/ivans-innovation-lab/my-company-common) between components.
 
 The **command-side (domain)** processes commands. Commands are actions which change state in some way. The execution of these commands results in `Events` being generated which are persisted by Axon, and propagated out to other components. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build domain aggregates on demand, one event at a time.
 
-The **query-side (materialized view)** is an event-listener and processor. It listens for the `Events` and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a *materialised view* which tracks the state of the individual agregates (Product, Blog, ...).
+- https://github.com/ivans-innovation-lab/my-company-blog-domain
+- https://github.com/ivans-innovation-lab/my-company-project-domain
+
+The **query-side (materialized view)** is an event-listener and processor. It listens for the `Events` and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a *materialised view* which tracks the state of the individual agregates (Project, Blog, ...).
+
+- https://github.com/ivans-innovation-lab/my-company-blog-materialized-view
+- https://github.com/ivans-innovation-lab/my-company-project-materialized-view
 
 This application have REST API's which can be used to access capabilities of a the domain and all materialized views.
 
