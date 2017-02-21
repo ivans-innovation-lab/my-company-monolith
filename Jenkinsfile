@@ -30,7 +30,7 @@ pipeline {
                 }
             }
         }
-        stage ('Create & Push Docker image') {
+        stage ('Build & Push Docker image') {
             when {
                 branch 'master'
             }
