@@ -1,8 +1,5 @@
 pipeline {
     agent any
-     environment {
-     DOCKER_HOST = "unix:///var/run/docker.sock"
-    }
     tools { 
         maven 'maven-3' 
     }
