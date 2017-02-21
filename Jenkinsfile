@@ -35,7 +35,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh 'mvn docker:build -DpushImage'
+                sh 'DOCKER_HOST=unix:///var/run/docker.sock mvn docker:build -DpushImage'
             }
         }
     }
