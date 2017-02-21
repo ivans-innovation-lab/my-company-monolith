@@ -37,11 +37,6 @@ pipeline {
             steps {
                 sh 'mvn docker:build -DpushImage'
             }
-            post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml' 
-                }
-            }
         }
     }
 }
