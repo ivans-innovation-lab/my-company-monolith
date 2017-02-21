@@ -30,5 +30,18 @@ pipeline {
                 }
             }
         }
+        stage ('Create & Push Docker image') {
+            when {
+                branch 'master'
+            }
+            steps {
+                sh 'mvn docker:build -DpushImage'
+            }
+            post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml' 
+                }
+            }
+        }
     }
 }
