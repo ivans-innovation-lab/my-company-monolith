@@ -33,13 +33,5 @@ pipeline {
                 }
             }
         }
-        stage ('Build & Push Docker image') {
-            when {
-                branch 'master'
-            }
-            steps {
-                sh 'mvn docker:build -DpushImage'
-            }
-        }
     }
 }
