@@ -31,12 +31,9 @@ pipeline {
             }
         }
         stage('Create Docker Image') {
-            dir('src/main/docker') {
               steps {
-                docker.build("idugalic/my-company-monolithic-web:${env.BUILD_NUMBER}")
+                sh 'docker info'
               }
-              
-            }
         }
     }
 }
