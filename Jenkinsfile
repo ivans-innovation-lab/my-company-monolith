@@ -2,7 +2,6 @@ pipeline {
     agent any
     tools { 
         maven 'maven-3' 
-        org.jenkinsci.plugins.docker.commons.tools.DockerTool 'docker'
     }
     stages {
         stage ('Build') {
@@ -30,11 +29,6 @@ pipeline {
                     junit 'target/surefire-reports/**/*.xml' 
                 }
             }
-        }
-        stage('Create Docker Image') {
-              steps {
-                sh 'docker info'
-              }
         }
     }
 }
