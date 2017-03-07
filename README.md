@@ -1,5 +1,4 @@
-# my-company-monolithic-web
-
+# my-company-monolithic
 This version of the application is deployed as a single monolithic application. 
 
 Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourcing enables deployment flexibility - the application can be migrated and deployed as a microservices.
