@@ -5,7 +5,7 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
 
 ## Table of Contents
 
-* [Application 'My Company' (Monolithic version)](#application-my-company-monolithic-version)
+   * [Application 'My Company' (Monolithic version)](#application-my-company-monolithic-version)
       * [Patterns and techniques:](#patterns-and-techniques)
       * [Technologies](#technologies)
       * [Key benefits](#key-benefits)
