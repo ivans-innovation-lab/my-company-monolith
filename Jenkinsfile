@@ -27,7 +27,7 @@ pipeline {
                      def pom = readMavenPom file: 'pom.xml'
                      def version = pom.version.replace("-SNAPSHOT", ".${currentBuild.number}")
                 }
-                echo "Pom: ${pom}"
+                echo "Maven Pom: ${pom}"
                 echo "Version: ${version}"
                 sh 'mvn clean deploy'
             }
