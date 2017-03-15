@@ -6,7 +6,8 @@
 	<artifactId>my-company-monolith</artifactId>
 	<packaging>jar</packaging>
 	<name>my company monolith</name>	
-<description>Monolith</description>
+        <description>Monolith</description>
+	<version>0.0.1-SNAPSHOT</version>
 
 	<parent>
 		<groupId>com.idugalic</groupId>
