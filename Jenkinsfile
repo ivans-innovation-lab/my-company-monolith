@@ -22,6 +22,7 @@ pipeline {
                 branch 'master'
             }
             steps {
+                sh 'git status'
                 sh 'mvn clean deploy'
             }
             post {
