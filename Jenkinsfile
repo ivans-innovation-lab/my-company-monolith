@@ -25,10 +25,9 @@ pipeline {
                 sh 'git status'
                 script {
                      def pom = readMavenPom file: 'pom.xml'
-                     def version = pom.version.replace("-SNAPSHOT", ".${currentBuild.number}")
                 }
                 echo "Pom: ${pom}"
-                echo "Version: ${version}"
+                echo "Version: ${pom.version}"
                 sh 'mvn clean deploy'
             }
             post {
