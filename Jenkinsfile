@@ -22,13 +22,6 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh 'git status'
-                script {
-                     def pom = readMavenPom file: 'pom.xml'
-                     def version = pom.version.replace("-SNAPSHOT", ".${currentBuild.number}")
-                }
-                echo "Maven Pom: ${pom}"
-                echo "Version: ${version}"
                 sh 'mvn clean deploy'
             }
             post {
