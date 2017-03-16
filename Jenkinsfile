@@ -29,7 +29,7 @@ pipeline {
                     sh "mvn -DreleaseVersion=${version} -DdevelopmentVersion=${pom.version} -DpushChanges=false -DlocalCheckout=true -DpreparationGoals=initialize release:prepare release:perform -B"
                     
                     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'git', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-                        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@https://github.com/ivans-innovation-lab/my-company-monolith.git --tags')
+                        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/ivans-innovation-lab/my-company-monolith.git --tags')
                     }
                 }
             }
