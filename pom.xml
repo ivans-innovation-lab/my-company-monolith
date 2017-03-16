@@ -7,11 +7,12 @@
 	<packaging>jar</packaging>
 	<name>my company monolith</name>
 	<description>Monolith</description>
+	<version>1.0.0</version>
 
 	<parent>
 		<groupId>com.idugalic</groupId>
 		<artifactId>my-company-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 
 	<properties>
@@ -25,22 +26,22 @@
 		<dependency>
 			<groupId>com.idugalic</groupId>
 			<artifactId>my-company-blog-domain</artifactId>
-			<version>${project.parent.version} </version>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.idugalic</groupId>
 			<artifactId>my-company-project-domain</artifactId>
-			<version>${project.parent.version} </version>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.idugalic</groupId>
 			<artifactId>my-company-blog-materialized-view</artifactId>
-			<version>${project.parent.version} </version>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.idugalic</groupId>
 			<artifactId>my-company-project-materialized-view</artifactId>
-			<version>${project.parent.version} </version>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.axonframework</groupId>
