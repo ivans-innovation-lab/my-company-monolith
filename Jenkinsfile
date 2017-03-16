@@ -22,10 +22,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh 'git config user.email "idugalic@gmail.com"'
-                sh 'git config user.name "Jenkins"'
-                sh 'git status'
-                sh 'mvn -B gitflow:release-finish'
+                sh 'mvn -DpushChanges=false -DlocalCheckout=true -DpreparationGoals=initialize release:prepare release:perform -B'
             }
             post {
                 success {
