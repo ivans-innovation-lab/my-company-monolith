@@ -210,8 +210,8 @@
 					<installProject>false</installProject>
 					<verbose>true</verbose>
 					<gitFlowConfig>
-						<productionBranch>-- master</productionBranch>
-						<developmentBranch>-- master</developmentBranch>
+						<productionBranch>master</productionBranch>
+						<developmentBranch>master</developmentBranch>
 						<featureBranchPrefix>feature/</featureBranchPrefix>
 						<releaseBranchPrefix>release/</releaseBranchPrefix>
 						<hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
