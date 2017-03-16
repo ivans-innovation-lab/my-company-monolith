@@ -22,6 +22,8 @@ pipeline {
                 branch 'master'
             }
             steps {
+                pom = readMavenPom file: 'pom.xml'
+                echo 'POM: ${pom.version}'
                 sh 'mvn -DpushChanges=false -DlocalCheckout=true -DpreparationGoals=initialize release:prepare release:perform -B'
             }
             post {
