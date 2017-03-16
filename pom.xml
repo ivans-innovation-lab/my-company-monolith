@@ -206,26 +206,14 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>com.amashchenko.maven.plugin</groupId>
-				<artifactId>gitflow-maven-plugin</artifactId>
-				<version>1.4.1</version>
-				
-				<configuration>
-				    <skipTestProject>true</skipTestProject>
-					<installProject>false</installProject>
-					<verbose>true</verbose>
-					<fetchRemote>false</fetchRemote>
-					<gitFlowConfig>
-						<productionBranch>master</productionBranch>
-						<developmentBranch>master</developmentBranch>
-						<featureBranchPrefix>feature/</featureBranchPrefix>
-						<releaseBranchPrefix>release/</releaseBranchPrefix>
-						<hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
-						<supportBranchPrefix>support/</supportBranchPrefix>
-						<versionTagPrefix></versionTagPrefix>
-						
-					</gitFlowConfig>
-				</configuration>
+			   <groupId>org.apache.maven.plugins</groupId>
+			   <artifactId>maven-release-plugin</artifactId>
+			   <version>2.4.2</version>
+			   <configuration>
+			      <tagNameFormat>v@{project.version}</tagNameFormat>
+			      <autoVersionSubmodules>true</autoVersionSubmodules>
+			      <releaseProfiles>releases</releaseProfiles>
+			   </configuration>
 			</plugin>
 		</plugins>
 	</build>
