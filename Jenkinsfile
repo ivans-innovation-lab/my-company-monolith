@@ -23,11 +23,9 @@ pipeline {
             }
             steps {
                 script{
-                    sh 'git config user.email "you@example.com"'
-                    sh 'git config user.name "Your Name"'
                     def pom = readMavenPom file: 'pom.xml'
                     def version = pom.version.replace("-SNAPSHOT", ".${currentBuild.number}")
-                    sh "mvn -DreleaseVersion=${version} -DdevelopmentVersion=${pom.version} -DpushChanges=false -DlocalCheckout=true release:prepare release:perform -B"
+                    sh "mvn -DreleaseVersion=${version} -DdevelopmentVersion=${pom.version} release:clean release:prepare release:perform -B"
                     
                     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'git', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
                         sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/ivans-innovation-lab/my-company-monolith.git --tags')
