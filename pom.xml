@@ -209,6 +209,7 @@
 				    <skipTestProject>true</skipTestProject>
 					<installProject>false</installProject>
 					<verbose>true</verbose>
+					<fetchRemote>false</fetchRemote>
 					<gitFlowConfig>
 						<productionBranch>master</productionBranch>
 						<developmentBranch>master</developmentBranch>
@@ -217,6 +218,7 @@
 						<hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
 						<supportBranchPrefix>support/</supportBranchPrefix>
 						<versionTagPrefix></versionTagPrefix>
+						
 					</gitFlowConfig>
 				</configuration>
 			</plugin>
