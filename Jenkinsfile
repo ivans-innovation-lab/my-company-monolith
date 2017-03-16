@@ -22,9 +22,8 @@ pipeline {
                 branch 'master'
             }
             steps {
-                echo 'All Jankins variables: '
-                sh 'env | sort'
                 sh 'mvn clean deploy'
+                sh 'mvn -B gitflow:release-start deploy gitflow:release-finish'
             }
             post {
                 success {
