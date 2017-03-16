@@ -16,8 +16,8 @@
 	</parent>
 	
 	<scm>
-         <connection>scm:git:https://github.com/ivans-innovation-lab/my-company-monolith</connection>
-         <developerConnection>scm:git:git:https://github.com/ivans-innovation-lab/my-company-monolith</developerConnection>
+         <connection>scm:git:https://github.com/ivans-innovation-lab/my-company-monolith.git</connection>
+         <developerConnection>scm:git:https://github.com/ivans-innovation-lab/my-company-monolith.git</developerConnection>
        </scm>
 
 	<properties>
