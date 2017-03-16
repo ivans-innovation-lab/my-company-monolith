@@ -205,7 +205,7 @@
 				<artifactId>gitflow-maven-plugin</artifactId>
 				<version>1.4.1</version>
 				<configuration>
-					<installProject>true</installProject>
+					<installProject>false</installProject>
 					<verbose>true</verbose>
 					<gitFlowConfig>
 						<productionBranch>master</productionBranch>
