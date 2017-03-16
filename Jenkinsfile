@@ -23,6 +23,8 @@ pipeline {
             }
             steps {
                 script{
+                    sh 'git config --global user.email "you@example.com"'
+                    sh 'git config --global user.name "idugalic"'
                     def pom = readMavenPom file: 'pom.xml'
                     def version = pom.version.replace("-SNAPSHOT", ".${currentBuild.number}")
                     sh "mvn -DreleaseVersion=${version} -DdevelopmentVersion=${pom.version} release:clean release:prepare release:perform -B"
