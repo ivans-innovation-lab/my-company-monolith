@@ -22,8 +22,12 @@ pipeline {
                 branch 'master'
             }
             steps {
-                pom = readMavenPom file: 'pom.xml'
-                echo 'POM: ${pom.version}'
+                script {
+                    def pom = readMavenPom file: 'pom.xml'
+                    def version = pom.version.replace("-SNAPSHOT", ".${currentBuild.number}")
+                }
+                echo 'POM: ${pom}'
+                echo 'VERSION: ${version}'
                 sh 'mvn -DpushChanges=false -DlocalCheckout=true -DpreparationGoals=initialize release:prepare release:perform -B'
             }
             post {
