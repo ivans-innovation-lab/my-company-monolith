@@ -28,6 +28,7 @@ pipeline {
                     sh "mvn -DreleaseVersion=${version} -DdevelopmentVersion=${pom.version} -DpushChanges=false -DlocalCheckout=true -DpreparationGoals=initialize release:prepare release:perform -B"
                     sh "git push ${pom.artifactId}-${version}"
                 }
+            }
         }
     }
 }
