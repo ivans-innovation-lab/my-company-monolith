@@ -23,6 +23,8 @@ pipeline {
             }
             steps {
                 script {
+                    echo "GIT URL: ${GIT_REPO}"
+                    git url: "${GIT_REPO}"
                     sh "git clean -f && git reset --hard origin/master"
                     def pom = readMavenPom file: 'pom.xml'
                     def version = pom.version.replace("-SNAPSHOT", ".${currentBuild.number}")
