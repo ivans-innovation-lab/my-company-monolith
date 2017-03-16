@@ -25,17 +25,9 @@ pipeline {
                 script {
                     def pom = readMavenPom file: 'pom.xml'
                     def version = pom.version.replace("-SNAPSHOT", ".${currentBuild.number}")
-                    echo "Version0: ${version}"
+                    sh "mvn -DreleaseVersion=${version} -DdevelopmentVersion=${pom.version} -DpushChanges=false -DlocalCheckout=true -DpreparationGoals=initialize release:prepare release:perform -B"
+                    sh "git push ${pom.artifactId}-${version}"
                 }
-                echo "${pom}"
-                echo "${version}"
-                sh 'mvn -DpushChanges=false -DlocalCheckout=true -DpreparationGoals=initialize release:prepare release:perform -B'
-            }
-            post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml' 
-                }
-            }
         }
     }
 }
