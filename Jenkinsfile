@@ -25,9 +25,10 @@ pipeline {
                 script {
                     def pom = readMavenPom file: 'pom.xml'
                     def version = pom.version.replace("-SNAPSHOT", ".${currentBuild.number}")
+                    echo "Version0: ${version}"
                 }
-                echo 'POM: ${pom}'
-                echo 'VERSION: ${version}'
+                echo "${pom}"
+                echo "${version}"
                 sh 'mvn -DpushChanges=false -DlocalCheckout=true -DpreparationGoals=initialize release:prepare release:perform -B'
             }
             post {
