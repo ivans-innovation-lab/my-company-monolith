@@ -24,7 +24,7 @@ pipeline {
             steps {
                 sh 'git config user.email "idugalic@gmail.com"'
                 sh 'git config user.name "Jenkins"'
-                sh 'git commit -a -m "Releasing"'
+                sh 'git status'
                 sh 'mvn -B gitflow:release-finish'
             }
             post {
