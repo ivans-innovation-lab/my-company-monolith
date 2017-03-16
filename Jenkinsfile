@@ -22,6 +22,7 @@ pipeline {
                 branch 'master'
             }
             steps {
+                script{
                     sh "env"
                     echo "GIT URL: ${env.GIT_REPO}"
                     git url: "${env.GIT_REPO}"
