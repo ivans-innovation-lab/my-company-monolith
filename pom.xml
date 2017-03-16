@@ -204,7 +204,9 @@
 				<groupId>com.amashchenko.maven.plugin</groupId>
 				<artifactId>gitflow-maven-plugin</artifactId>
 				<version>1.4.1</version>
+				
 				<configuration>
+				    <skipTestProject>true</skipTestProject>
 					<installProject>false</installProject>
 					<verbose>true</verbose>
 					<gitFlowConfig>
