@@ -22,7 +22,8 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh 'mvn -B gitflow:release'
+                sh 'git --version'
+                sh 'mvn -B gitflow:release-start deploy gitflow:release-finish'
             }
             post {
                 success {
