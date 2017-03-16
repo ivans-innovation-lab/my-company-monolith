@@ -22,7 +22,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                    sh 'env'
+                    sh "env"
                     echo "GIT URL: ${env.GIT_REPO}"
                     git url: "${env.GIT_REPO}"
                     sh "git clean -f && git reset --hard origin/master"
