@@ -23,6 +23,9 @@ pipeline {
             }
             steps {
                 script {
+                    for(e in env){
+        echo e + " is " + ${e}
+    }
                     echo "GIT URL: ${env.GIT_REPO}"
                     git url: "${env.GIT_REPO}"
                     sh "git clean -f && git reset --hard origin/master"
