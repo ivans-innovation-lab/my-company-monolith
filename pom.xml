@@ -5,7 +5,7 @@
 	<artifactId>my-company-monolith</artifactId>
 	<packaging>jar</packaging>
 	<name>my company monolith</name>
-	<description>Monolith</description>
+	<description>Monolith Application</description>
 	<version>3.0.0-SNAPSHOT</version>
 
 	<parent>
