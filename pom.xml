@@ -6,7 +6,7 @@
 	<packaging>jar</packaging>
 	<name>my company monolith</name>
 	<description>Monolith Application</description>
-	<version>3.0.0-SNAPSHOT</version>
+	<version>3.0.0.45</version>
 
 	<parent>
 		<groupId>com.idugalic</groupId>
@@ -17,7 +17,8 @@
 	<scm>
          <connection>scm:git:https://github.com/ivans-innovation-lab/my-company-monolith.git</connection>
          <developerConnection>scm:git:https://github.com/ivans-innovation-lab/my-company-monolith.git</developerConnection>
- 	</scm>
+ 	  <tag>v3.0.0.45</tag>
+  </scm>
 
 	<properties>
 		<start-class>com.idugalic.Application</start-class>
