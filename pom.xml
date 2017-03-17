@@ -17,8 +17,7 @@
 	<scm>
          <connection>scm:git:https://github.com/ivans-innovation-lab/my-company-monolith.git</connection>
          <developerConnection>scm:git:https://github.com/ivans-innovation-lab/my-company-monolith.git</developerConnection>
-         <tag>HEAD</tag>
-  </scm>
+ 	</scm>
 
 	<properties>
 		<start-class>com.idugalic.Application</start-class>
