@@ -33,22 +33,22 @@
 		<dependency>
 			<groupId>com.idugalic</groupId>
 			<artifactId>my-company-blog-domain</artifactId>
-			<version>1.0.0.1</version>
+			<version>1.0.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.idugalic</groupId>
 			<artifactId>my-company-project-domain</artifactId>
-			<version>1.0.0.1</version>
+			<version>1.0.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.idugalic</groupId>
 			<artifactId>my-company-blog-materialized-view</artifactId>
-			<version>1.0.0.1</version>
+			<version>1.0.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.idugalic</groupId>
 			<artifactId>my-company-project-materialized-view</artifactId>
-			<version>1.0.0.1</version>
+			<version>1.0.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.axonframework</groupId>
