@@ -12,7 +12,7 @@
 	<parent>
 		<groupId>com.idugalic</groupId>
 		<artifactId>my-company-parent</artifactId>
-		<version>1.0.0.1</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<scm>
@@ -33,12 +33,12 @@
 		<dependency>
 			<groupId>com.idugalic</groupId>
 			<artifactId>my-company-blog-domain</artifactId>
-			<version>1.0.0.2</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.idugalic</groupId>
 			<artifactId>my-company-project-domain</artifactId>
-			<version>1.0.0.2</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.idugalic</groupId>
