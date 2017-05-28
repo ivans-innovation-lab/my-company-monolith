@@ -1,16 +1,24 @@
+machine:
+  services:
+    - docker
+
 dependencies:
   override:
-    - mvn -DskipTests clean install dependency:resolve-plugins dependency:go-offline
+    - mvn dependency:resolve -s .circleci.settings.xml
 
 test:
   override:
-    - mvn test
+    - mvn test -s .circleci.settings.xml
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
 
 deployment:
-  main:
+  maven:
     branch: master
     commands:
-      - mvn -DskipTests deploy
+      - mvn deploy -s .circleci.settings.xml -DskipTests -P idugalic-cloud
+  dockerhub:
+    branch: master
+    commands:
+      - mvn docker:build -s .circleci.settings.xml -DpushImage
