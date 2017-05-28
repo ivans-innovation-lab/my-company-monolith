@@ -14,11 +14,9 @@ test:
     - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
 
 deployment:
-  maven:
+  master:
     branch: master
     commands:
       - mvn deploy -s .circleci.settings.xml -DskipTests -P idugalic-cloud
-  dockerhub:
-    branch: master
-    commands:
       - mvn docker:build -s .circleci.settings.xml -DpushImage
+      
