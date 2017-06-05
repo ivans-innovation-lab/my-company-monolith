@@ -12,14 +12,6 @@
 			<username>idugalic</username>
 			<password>${env.MAVEN_PASSWORD}</password>
 		</server>
-		<server>
-			<id>docker-hub</id>
-			<username>idugalic</username>
-			<password>${env.DOCKER_PASSWORD}</password>
-			<configuration>
-				<email>idugalic@gmail.com</email>
-			</configuration>
-		</server>
 	</servers>
 
 	<profiles>
@@ -29,7 +21,7 @@
 				<repository>
 					<id>idugalic-releases</id>
 					<name>idugalic-releases</name>
-					<url>http://maven.idugalic.pro/artifactory/local-repository</url>
+					<url>http://maven.idugalic.pro/artifactory/local-release-repository</url>
 					<snapshots>
 						<enabled>true</enabled>
 					</snapshots>
