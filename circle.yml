@@ -14,9 +14,13 @@ test:
     - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
 
 deployment:
-  master:
+  stage:
     branch: master
     commands:
       - mvn deploy -s .circleci.settings.xml -DskipTests -P idugalic-cloud
       - mvn docker:build -s .circleci.settings.xml -DpushImage
-      
+      - mvn cf:push -Dcf.space=Stage -Dcf.target=https://api.run.pivotal.io
+  production:
+    branch: production
+    commands:
+      - mvn cf:push -Dcf.space=Prod -Dcf.target=https://api.run.pivotal.io

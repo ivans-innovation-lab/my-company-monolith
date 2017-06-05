@@ -12,6 +12,19 @@
 			<username>idugalic</username>
 			<password>${env.MAVEN_PASSWORD}</password>
 		</server>
+		<server>
+			<id>docker-hub</id>
+			<username>idugalic</username>
+			<password>${env.DOCKER_PASSWORD}</password>
+			<configuration>
+				<email>idugalic@gmail.com</email>
+			</configuration>
+		</server>
+		<server>
+			<id>mycloudfoundry-instance</id>
+			<username>idugalic@gmail.com</username>
+			<password>${env.CF_PASSWORD}</password>
+		</server>
 	</servers>
 
 	<profiles>
