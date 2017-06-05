@@ -33,6 +33,7 @@ deployment:
   production:
     branch: production
     commands:
+      - mvn package -s .circleci.settings.xml -DskipTests
 #      - mvn cf:push -s .circleci.settings.xml -DskipTests -Dcf.appname=prod-my-company-monolith -Dcf.space=Prod -Dcf.services=sql
       - cf api https://api.run.pivotal.io
       - cf auth idugalic@gmail.com $CF_PASSWORD
