@@ -27,7 +27,7 @@ deployment:
       - cf api https://api.run.pivotal.io
       - cf auth idugalic@gmail.com $CF_PASSWORD
       - cf target -o idugalic -s Stage
-      - cf push stage-my-company-monolith
+      - cf push stage-my-company-monolith -p target/*.jar
   production:
     branch: production
     commands:
@@ -35,6 +35,6 @@ deployment:
       - cf api https://api.run.pivotal.io
       - cf auth idugalic@gmail.com $CF_PASSWORD
       - cf target -o idugalic -s Prod
-      - cf push prod-my-company-monolith
+      - cf push prod-my-company-monolith -p target/*.jar
       
       
