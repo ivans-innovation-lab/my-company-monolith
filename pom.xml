@@ -142,7 +142,7 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.cloudfoundry</groupId>
 				<artifactId>cf-maven-plugin</artifactId>
@@ -151,9 +151,11 @@
 					<server>mycloudfoundry-instance</server>
 					<target>http://api.run.pivotal.io</target>
 					<org>idugalic</org>
-					<space>Stage</space>
 					<appname>my-company-monolith</appname>
 					<memory>1024</memory>
+					<services>
+						<service>sql</service>
+					</services>
 					<diskQuota>1024</diskQuota>
 					<healthCheckTimeout>60</healthCheckTimeout>
 					<trustSelfSignedCerts>true</trustSelfSignedCerts>
