@@ -151,6 +151,7 @@
 					<server>mycloudfoundry-instance</server>
 					<target>http://api.run.pivotal.io</target>
 					<org>idugalic</org>
+					<space>Stage</space>
 					<appname>my-company-monolith</appname>
 					<memory>1024</memory>
 					<diskQuota>1024</diskQuota>
