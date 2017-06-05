@@ -19,7 +19,7 @@ deployment:
     commands:
       - mvn deploy -s .circleci.settings.xml -DskipTests -P idugalic-cloud
 #      - mvn docker:build -s .circleci.settings.xml -DpushImage
-      - mvn cf:push -Dcf.space=Stage -Dcf.target=https://api.run.pivotal.io
+      - mvn cf:push -s .circleci.settings.xml -Dcf.space=Stage -Dcf.target=https://api.run.pivotal.io
   production:
     branch: production
     commands:
