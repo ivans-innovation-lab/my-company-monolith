@@ -22,13 +22,19 @@ deployment:
     branch: master
     commands:
       - mvn deploy -s .circleci.settings.xml -DskipTests -P idugalic-cloud
-      - mvn docker:build -s .circleci.settings.xml -DpushImage
+#      - mvn docker:build -s .circleci.settings.xml -DpushImage
 #      - mvn cf:push -s .circleci.settings.xml -DskipTests -Dcf.appname=stage-my-company-monolith -Dcf.space=Stage -Dcf.services=sql
-#  production:
-#    branch: production
-#    commands:
-#      - mvn cf:push -s .circleci.settings.xml -DskipTests -Dcf.appname=prod-my-company-monolith -Dcf.space=Prod -Dcf.services=sql
       - cf api https://api.run.pivotal.io
       - cf auth idugalic@gmail.com $CF_PASSWORD
       - cf target -o idugalic -s Stage
-      - cf push
+      - cf push stage-my-company-monolith
+  production:
+    branch: production
+    commands:
+#      - mvn cf:push -s .circleci.settings.xml -DskipTests -Dcf.appname=prod-my-company-monolith -Dcf.space=Prod -Dcf.services=sql
+      - cf api https://api.run.pivotal.io
+      - cf auth idugalic@gmail.com $CF_PASSWORD
+      - cf target -o idugalic -s Prod
+      - cf push prod-my-company-monolith
+      
+      
