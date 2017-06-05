@@ -18,9 +18,9 @@ deployment:
     branch: master
     commands:
       - mvn deploy -s .circleci.settings.xml -DskipTests -P idugalic-cloud
-#      - mvn docker:build -s .circleci.settings.xml -DpushImage
-      - mvn cf:push -s .circleci.settings.xml -DskipTests -Dcf.appname=stage-my-company-monolith -Dcf.space=Stage -Dcf.services=sql
-  production:
-    branch: production
-    commands:
-      - mvn cf:push -s .circleci.settings.xml -DskipTests -Dcf.appname=prod-my-company-monolith -Dcf.space=Prod -Dcf.services=sql
+      - mvn docker:build -s .circleci.settings.xml -DpushImage
+#      - mvn cf:push -s .circleci.settings.xml -DskipTests -Dcf.appname=stage-my-company-monolith -Dcf.space=Stage -Dcf.services=sql
+#  production:
+#    branch: production
+#    commands:
+#      - mvn cf:push -s .circleci.settings.xml -DskipTests -Dcf.appname=prod-my-company-monolith -Dcf.space=Prod -Dcf.services=sql
