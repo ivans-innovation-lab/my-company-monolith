@@ -153,7 +153,7 @@
 					<org>idugalic</org>
 					<space>Stage</space>
 					<appname>my-company-monolith</appname>
-					<memory>512</memory>
+					<memory>1024</memory>
 					<diskQuota>1024</diskQuota>
 					<healthCheckTimeout>60</healthCheckTimeout>
 					<trustSelfSignedCerts>true</trustSelfSignedCerts>
