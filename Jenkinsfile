@@ -4,7 +4,7 @@ pipeline {
         maven 'maven-3' 
     }
     stages {
-        stage ('Build & Test') {
+        stage ('Build') {
             steps {
                 sh 'mvn clean build'
             }
@@ -14,7 +14,7 @@ pipeline {
                 }
             }
         }
-        stage ('Deploy to Stage') {
+        stage ('Stage') {
             when {
                 branch 'master'
             }
@@ -28,7 +28,7 @@ pipeline {
       			sh 'cf restart stage-my-company-monolith'
             }
         }
-        stage ('Deploy to Production') {
+        stage ('Production') {
             when {
                 branch 'production'
             }
