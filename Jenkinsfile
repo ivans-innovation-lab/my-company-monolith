@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh 'mvn deploy -DskipTests'
                 sh 'cf api https://api.local.pcfdev.io'
-     			sh 'cf auth user pass
+     			sh 'cf auth user pass'
       			sh 'cf target -o pcfdev-org -s pcfdev-stage'
       			sh 'cf push stage-my-company-monolith -p target/*.jar --no-start'
       			sh 'cf bind-service stage-my-company-monolith mysql-stage'
@@ -35,7 +35,7 @@ pipeline {
             steps {
                 sh 'mvn package -DskipTests'
                 sh 'cf api https://api.local.pcfdev.io'
-     			sh 'cf auth user pass
+     			sh 'cf auth user pass'
       			sh 'cf target -o pcfdev-org -s pcfdev-prod'
       			sh 'cf push prod-my-company-monolith -p target/*.jar --no-start'
       			sh 'cf bind-service prod-my-company-monolith mysql-prod'
