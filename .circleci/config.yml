@@ -1,0 +1,123 @@
+defaults: &defaults
+  working_directory: /home/circleci/my-company-monolith
+  docker:
+    - image: circleci/openjdk:8-jdk-browsers
+    
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    steps:
+
+      - checkout
+
+      - restore_cache:
+          key: my-company-monolith-{{ checksum "pom.xml" }}
+
+      - run: 
+          name: Install maven artifact
+          command: |
+            if [ "${CIRCLE_BRANCH}" != "master" ]; then
+              mvn -s .circleci/maven.settings.xml install -P idugalic-cloud
+            fi
+            
+      - deploy:
+          name: Deploy maven artifact
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              mvn -s .circleci/maven.settings.xml deploy -P idugalic-cloud
+            fi
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: my-company-monolith-{{ checksum "pom.xml" }}
+      
+      - run:
+          name: Collecting test results
+          command: |
+            mkdir -p junit/
+            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} junit/ \;
+          when: always
+          
+      - store_test_results:
+          path: junit/
+          
+      - store_artifacts:
+          path: junit/
+          
+      - run:
+          name: Collecting artifacts
+          command: |
+            mkdir -p artifacts/
+            find . -type f -regex ".*/target/.*jar" -exec cp {} artifacts/ \;
+     
+      - store_artifacts:
+          path: artifacts/
+          
+      - persist_to_workspace:
+          root: artifacts/
+          paths:
+            - .
+
+  staging:
+    docker:
+      -image: governmentpaas/cf-cli:latest
+    steps:
+      - attach_workspace:
+          at: workspace/
+          
+      - run: ls -la workspace/
+      - run: cf -v
+      
+  staging-e2e:
+    docker:
+      -image: governmentpaas/cf-cli:latest
+    steps:
+      - attach_workspace:
+          at: workspace/
+          
+      - run: ls -la workspace/
+      - run: cf -v
+      
+  production:
+    docker:
+      -image: governmentpaas/cf-cli:latest
+    steps:
+      - attach_workspace:
+          at: workspace/
+          
+      - run: ls -la workspace/
+      - run: cf -v
+
+  
+workflows:
+  version: 2
+  my-company-monolith-workflow:
+    jobs:
+      - build
+      - staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - staging-e2e:
+          requires:
+            - staging
+          filters:
+            branches:
+              only: master
+      - approve-production:
+          type: approval
+          requires:
+            - staging-e2e
+          filters:
+            branches:
+              only: master
+      - production:
+          requires:
+            - approve-production
+          filters:
+            branches:
+              only: master
