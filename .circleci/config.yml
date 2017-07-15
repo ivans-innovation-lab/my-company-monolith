@@ -71,8 +71,17 @@ jobs:
             curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
             sudo dpkg -i cf-cli_amd64.deb
             cf -v
-      - run: ls -la workspace/
-      
+      - run:
+          name: Deploy to Staging - PWS CLoudFoundry
+          command: |
+            cf api https://api.run.pivotal.io
+            cf auth idugalic@gmail.com $CF_PASSWORD
+            cf target -o idugalic -s Stage
+            cf push stage-my-company-monolith -p workspace/*.jar --no-start
+            cf bind-service stage-my-company-monolith mysql-stage
+            cf restart stage-my-company-monolith
+  
+  # A very simple e2e test    
   staging-e2e:
     <<: *defaults
     steps:
@@ -84,7 +93,10 @@ jobs:
             curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
             sudo dpkg -i cf-cli_amd64.deb
             cf -v
-      - run: ls -la workspace/
+      - run: 
+          name: End to end test on Staging
+          command: curl -i https://stage-my-company-monolith.cfapps.io/health
+      
       
   production:
     <<: *defaults
@@ -99,7 +111,16 @@ jobs:
             sudo dpkg -i cf-cli_amd64.deb
             cf -v
           
-      - run: ls -la workspace/
+      - run:
+          name: Deploy to Production - PWS CLoudFoundry
+          command: |
+            cf api https://api.run.pivotal.io
+            cf auth idugalic@gmail.com $CF_PASSWORD
+            cf target -o idugalic -s Stage
+            cf push stage-my-company-monolith -p workspace/*.jar --no-start
+            cf bind-service stage-my-company-monolith mysql-stage
+            cf restart stage-my-company-monolith
+      
   
 workflows:
   version: 2
