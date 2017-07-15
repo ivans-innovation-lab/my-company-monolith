@@ -87,12 +87,7 @@ jobs:
     steps:
       - attach_workspace:
           at: workspace/
-      - run:
-          name: Install CloudFoundry CLI
-          command: |
-            curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
-            sudo dpkg -i cf-cli_amd64.deb
-            cf -v
+          
       - run: 
           name: End to end test on Staging
           command: curl -i https://stage-my-company-monolith.cfapps.io/health
