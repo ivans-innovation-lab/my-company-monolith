@@ -116,10 +116,10 @@ jobs:
           command: |
             cf api https://api.run.pivotal.io
             cf auth idugalic@gmail.com $CF_PASSWORD
-            cf target -o idugalic -s Stage
-            cf push stage-my-company-monolith -p workspace/*.jar --no-start
-            cf bind-service stage-my-company-monolith mysql-stage
-            cf restart stage-my-company-monolith
+            cf target -o idugalic -s Prod
+            cf push prod-my-company-monolith -p workspace/*.jar --no-start
+            cf bind-service prod-my-company-monolith mysql-prod
+            cf restart prod-my-company-monolith
       
   
 workflows:
