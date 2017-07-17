@@ -71,7 +71,7 @@ jobs:
             curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
             sudo dpkg -i cf-cli_amd64.deb
             cf -v
-      - run:
+      - deploy:
           name: Deploy to Staging - PWS CLoudFoundry
           command: |
             cf api https://api.run.pivotal.io
@@ -106,7 +106,7 @@ jobs:
             sudo dpkg -i cf-cli_amd64.deb
             cf -v
           
-      - run:
+      - deploy:
           name: Deploy to Production - PWS CLoudFoundry
           command: |
             cf api https://api.run.pivotal.io
