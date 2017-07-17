@@ -10,7 +10,9 @@ jobs:
     steps:
 
       - checkout
-
+      # Caching is one of the most effective ways to make jobs faster on CircleCI.
+      # Downloading from a Remote Repository in Maven is triggered by a project declaring a dependency that is not present in the local repository (or for a SNAPSHOT, when the remote repository contains one that is newer).
+      # Do not overwrite your release (not snapshots) artifacts (my-company-blog-domain, my-company-blog-materialized-view, my-company-project-domain, my-company-project-materialized-view) on remote maven repository, othervise the cache will become stale.
       - restore_cache:
           key: my-company-monolith1-{{ checksum "pom.xml" }}
 
