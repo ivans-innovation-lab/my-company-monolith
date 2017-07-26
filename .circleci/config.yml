@@ -80,7 +80,7 @@ jobs:
             cf auth idugalic@gmail.com $CF_PASSWORD
             cf target -o idugalic -s Stage
             cf push stage-my-company-monolith -p workspace/*.jar --no-start
-            cf bind-service stage-my-company-monolith mysql-stage
+            cf bind-service stage-my-company-monolith mysql
             cf restart stage-my-company-monolith
   
   # A very simple e2e test    
@@ -115,7 +115,7 @@ jobs:
             cf auth idugalic@gmail.com $CF_PASSWORD
             cf target -o idugalic -s Prod
             cf push prod-my-company-monolith -p workspace/*.jar --no-start
-            cf bind-service prod-my-company-monolith mysql-prod
+            cf bind-service prod-my-company-monolith mysql
             cf restart prod-my-company-monolith
       
   
