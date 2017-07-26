@@ -60,3 +60,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: ${vcap.services.mysql.credentials.jdbcUrl}
+    username: ${vcap.services.mysql.credentials.username}
+    password: ${vcap.services.mysql.credentials.password}
