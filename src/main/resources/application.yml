@@ -47,6 +47,9 @@ spring:
     console:
       enabled: true
       path: /h2-console
+      
+flyway:
+  locations: db/migration/h2
 
 ---
 spring:
@@ -65,3 +68,7 @@ spring:
     url: ${vcap.services.mysql.credentials.jdbcUrl}
     username: ${vcap.services.mysql.credentials.username}
     password: ${vcap.services.mysql.credentials.password}
+    
+flyway:
+  locations: db/migration/mysql
+
