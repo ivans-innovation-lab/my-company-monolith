@@ -15,10 +15,6 @@ jobs:
       # Do not overwrite your release (not snapshots) artifacts (my-company-blog-domain, my-company-blog-materialized-view, my-company-project-domain, my-company-project-materialized-view) on remote maven repository, othervise the cache will become stale.
       - restore_cache:
           key: my-company-monolith1-{{ checksum "pom.xml" }}
-          
-      - run: 
-          name: Install awscli
-          command: sudo apt-get update && sudo apt-get install -y awscli
 
       - run: 
           name: Install maven artifact
@@ -78,7 +74,7 @@ jobs:
             sudo dpkg -i cf-cli_amd64.deb
             cf -v
       - deploy:
-          name: Deploy to Staging - PWS CLoudFoundry
+          name: Deploy to Staging - PWS CLoudFoundry (CF_PASSWORD variable required)
           command: |
             cf api https://api.run.pivotal.io
             cf auth idugalic@gmail.com $CF_PASSWORD
@@ -111,9 +107,13 @@ jobs:
             curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
             sudo dpkg -i cf-cli_amd64.deb
             cf -v
+            
+      - run: 
+          name: Install AWS CLI
+          command: sudo apt-get update && sudo apt-get install -y awscli
           
       - deploy:
-          name: Deploy to Production - PWS CLoudFoundry
+          name: Deploy to Production - PWS CLoudFoundry (CF_PASSWORD variable required)
           command: |
             cf api https://api.run.pivotal.io
             cf auth idugalic@gmail.com $CF_PASSWORD
@@ -121,6 +121,11 @@ jobs:
             cf push prod-my-company-monolith -p workspace/*.jar --no-start
             cf bind-service prod-my-company-monolith mysql
             cf restart prod-my-company-monolith
+               
+      - deploy:
+          name: Upload latest production artifact to AWS S3 (AWS Permissions on CircleCI required)
+          command: aws s3 sync /workspace s3://my-company-production --delete
+          
       
   
 workflows:
