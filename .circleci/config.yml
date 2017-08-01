@@ -18,7 +18,7 @@ jobs:
           
       - run: 
           name: Install awscli
-          command: sudo pip install awscli
+          command: apt-get update && apt-get install -y awscli
 
       - run: 
           name: Install maven artifact
