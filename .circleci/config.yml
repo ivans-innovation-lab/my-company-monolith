@@ -124,7 +124,7 @@ jobs:
                
       - deploy:
           name: Upload latest production artifact to AWS S3 (AWS Permissions on CircleCI required)
-          command: aws s3 sync /workspace s3://my-company-production --delete --region eu-central-1
+          command: aws s3 sync workspace/ s3://my-company-production --delete --region eu-central-1
           
       
   
