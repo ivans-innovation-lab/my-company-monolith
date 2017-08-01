@@ -15,6 +15,10 @@ jobs:
       # Do not overwrite your release (not snapshots) artifacts (my-company-blog-domain, my-company-blog-materialized-view, my-company-project-domain, my-company-project-materialized-view) on remote maven repository, othervise the cache will become stale.
       - restore_cache:
           key: my-company-monolith1-{{ checksum "pom.xml" }}
+          
+      - run: 
+          name: Install awscli
+          command: sudo pip install awscli
 
       - run: 
           name: Install maven artifact
