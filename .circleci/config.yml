@@ -86,6 +86,8 @@ jobs:
   staging-prod:
     <<: *defaults
     steps:
+      - attach_workspace:
+          at: workspace/
       - run:
           name: Install CloudFoundry CLI
           command: |
@@ -104,15 +106,21 @@ jobs:
       - deploy:
           name: Deploy latest production application to Staging - PWS CLoudFoundry (CF_PASSWORD variable required)
           command: |
-            if [ -e "~/my-company-monolith-1.0.0-SNAPSHOT.jar" ]; then
+            if [ -e "./my-company-monolith-1.0.0-SNAPSHOT.jar" ]; then
               cf api https://api.run.pivotal.io
               cf auth idugalic@gmail.com $CF_PASSWORD
               cf target -o idugalic -s Stage
-              cf push stage-my-company-monolith-prod -p ~/*.jar --no-start
+              cf push stage-my-company-monolith-prod -p ./*.jar --no-start
               cf bind-service stage-my-company-monolith-prod mysql
               cf restart stage-my-company-monolith-prod 
             else 
-              echo "Artifact does not exist"
+              echo "Artifact does not exist, deploying current build"
+              cf api https://api.run.pivotal.io
+              cf auth idugalic@gmail.com $CF_PASSWORD
+              cf target -o idugalic -s Stage
+              cf push stage-my-company-monolith-prod -p workspace/*.jar --no-start
+              cf bind-service stage-my-company-monolith-prod mysql
+              cf restart stage-my-company-monolith-prod
             fi 
             
       
