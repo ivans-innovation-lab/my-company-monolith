@@ -83,7 +83,7 @@ jobs:
             cf bind-service stage-my-company-monolith mysql
             cf restart stage-my-company-monolith
             
-  staging-old:
+  staging-prod:
     <<: *defaults
     steps:
       - run:
@@ -122,8 +122,10 @@ jobs:
           name: End to end test on Staging
           command: curl -i https://stage-my-company-monolith.cfapps.io/health
       
-  # A very simple e2e test of currnet production 
-  staging-e2e:
+  # A very simple e2e test of currnet production on staging. 
+  # Testing if DB schema of current production is matching currnet requirements of the application.
+  # DB - backward compatibility testing
+  staging-prod-e2e:
     <<: *defaults
     steps: 
       - run: 
@@ -174,7 +176,7 @@ workflows:
           filters:
             branches:
               only: master
-      - staging-old:
+      - staging-prod:
           requires:
             - build
           filters:
@@ -186,9 +188,9 @@ workflows:
           filters:
             branches:
               only: master
-      - staging-old-e2e:
+      - staging-prod-e2e:
           requires:
-            - staging-old
+            - staging-prod
           filters:
             branches:
               only: master
@@ -196,7 +198,7 @@ workflows:
           type: approval
           requires:
             - staging-e2e
-            - staging-old-e2e
+            - staging-prod-e2e
           filters:
             branches:
               only: master
