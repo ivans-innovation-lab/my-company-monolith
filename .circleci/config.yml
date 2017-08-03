@@ -135,9 +135,9 @@ jobs:
       - run: 
           name: End to end test on Staging
           command: |
-            curl --fail -I "https://stage-my-company-monolith.cfapps.io/health"
-            curl --fail -I "https://stage-my-company-monolith.cfapps.io/api/blogposts"
-            curl --fail -I "https://stage-my-company-monolith.cfapps.io/api/projects"
+            curl -I "https://stage-my-company-monolith.cfapps.io/health"
+            curl -I "https://stage-my-company-monolith.cfapps.io/api/blogposts"
+            curl -I "https://stage-my-company-monolith.cfapps.io/api/projects"
       
   # A very simple e2e test of the currnet production application on staging environment. 
   # Testing if DB schema of current production is matching currnet requirements of the application - backward compatibility testing.
@@ -147,9 +147,9 @@ jobs:
       - run: 
           name: End to end test on Staging of current production
           command: |
-            curl --fail -I "https://stage-my-company-monolith-prod.cfapps.io/health"
-            curl --fail -I "https://stage-my-company-monolith-prod.cfapps.io/api/blogposts"
-            curl --fail -I "https://stage-my-company-monolith-prod.cfapps.io/api/projects"
+            curl -I "https://stage-my-company-monolith-prod.cfapps.io/health"
+            curl -I "https://stage-my-company-monolith-prod.cfapps.io/api/blogposts"
+            curl -I "https://stage-my-company-monolith-prod.cfapps.io/api/projects"
               
   production:
     <<: *defaults
