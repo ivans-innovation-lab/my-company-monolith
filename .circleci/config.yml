@@ -148,6 +148,8 @@ jobs:
   production:
     <<: *defaults
     steps:
+      - checkout
+      
       - attach_workspace:
           at: workspace/
           
