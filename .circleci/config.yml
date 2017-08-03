@@ -82,7 +82,10 @@ jobs:
             cf push stage-my-company-monolith -p workspace/*.jar --no-start
             cf bind-service stage-my-company-monolith mysql
             cf restart stage-my-company-monolith
-            
+  
+  # Deploying current production on staging environemnt - backward compatibility testing.
+  # We are testing will the current production application work on the new database scheme that has been (possibly) changed during 'staging' job (Flyway will execute the schema migration upon application context setup).
+  # This way we make rollback to previous version possible.
   staging-prod:
     <<: *defaults
     steps:
@@ -133,9 +136,8 @@ jobs:
           name: End to end test on Staging
           command: curl -i https://stage-my-company-monolith.cfapps.io/health
       
-  # A very simple e2e test of currnet production on staging. 
-  # Testing if DB schema of current production is matching currnet requirements of the application.
-  # DB - backward compatibility testing
+  # A very simple e2e test of the currnet production application on staging environment. 
+  # Testing if DB schema of current production is matching currnet requirements of the application - backward compatibility testing.
   staging-prod-e2e:
     <<: *defaults
     steps: 
@@ -189,7 +191,7 @@ workflows:
               only: master
       - staging-prod:
           requires:
-            - build
+            - staging
           filters:
             branches:
               only: master
