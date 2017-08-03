@@ -88,6 +88,7 @@ jobs:
     steps:
       - attach_workspace:
           at: workspace/
+          
       - run:
           name: Install CloudFoundry CLI
           command: |
@@ -101,7 +102,7 @@ jobs:
 
       - run:
           name: Download latest production artifact from AWS S3 (AWS Permissions on CircleCI required)
-          command: aws s3 sync s3://my-company-production ~/ --delete --region eu-central-1
+          command: aws s3 sync s3://my-company-production . --delete --region eu-central-1
           
       - deploy:
           name: Deploy latest production application to Staging - PWS CLoudFoundry (CF_PASSWORD variable required)
@@ -122,9 +123,7 @@ jobs:
               cf bind-service stage-my-company-monolith-prod mysql
               cf restart stage-my-company-monolith-prod
             fi 
-            
-      
-            
+
   
   # A very simple e2e test    
   staging-e2e:
