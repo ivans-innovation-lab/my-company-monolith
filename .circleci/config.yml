@@ -134,7 +134,10 @@ jobs:
     steps:
       - run: 
           name: End to end test on Staging
-          command: curl -i https://stage-my-company-monolith.cfapps.io/health
+          command: |
+            curl --fail -I "https://stage-my-company-monolith.cfapps.io/health"
+            curl --fail -I "https://stage-my-company-monolith.cfapps.io/blogposts"
+            curl --fail -I "https://stage-my-company-monolith.cfapps.io/projects"
       
   # A very simple e2e test of the currnet production application on staging environment. 
   # Testing if DB schema of current production is matching currnet requirements of the application - backward compatibility testing.
@@ -143,7 +146,10 @@ jobs:
     steps: 
       - run: 
           name: End to end test on Staging of current production
-          command: curl -i https://stage-my-company-monolith-prod.cfapps.io/health
+          command: |
+            curl --fail -I "https://stage-my-company-monolith-prod.cfapps.io/health"
+            curl --fail -I "https://stage-my-company-monolith-prod.cfapps.io/blogposts"
+            curl --fail -I "https://stage-my-company-monolith-prod.cfapps.io/projects"
               
   production:
     <<: *defaults
@@ -178,8 +184,9 @@ jobs:
             cf unmap-route prod-my-company-monolith-B cfapps.io -n prod-my-company-monolith-B
             # Unmap Route to Blue
             cf unmap-route prod-my-company-monolith cfapps.io -n prod-my-company-monolith
-            # Delete Blue
-            cf delete prod-my-company-monolith -f
+            # Stop and rename current Blue in case you need to roll back your changes
+            cf stop prod-my-company-monolith -f
+            cf rename prod-my-company-monolith prod-my-company-monolith-old
             # Rename Green to Blue
             cf rename prod-my-company-monolith-B prod-my-company-monolith
                            
