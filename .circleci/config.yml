@@ -92,6 +92,10 @@ jobs:
             curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
             sudo dpkg -i cf-cli_amd64.deb
             cf -v
+      
+      - run: 
+          name: Install AWS CLI
+          command: sudo apt-get update && sudo apt-get install -y awscli
 
       - run:
           name: Download latest production artifact from AWS S3 (AWS Permissions on CircleCI required)
