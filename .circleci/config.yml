@@ -82,19 +82,54 @@ jobs:
             cf push stage-my-company-monolith -p workspace/*.jar --no-start
             cf bind-service stage-my-company-monolith mysql
             cf restart stage-my-company-monolith
+            
+  staging-old:
+    <<: *defaults
+    steps:
+      - run:
+          name: Install CloudFoundry CLI
+          command: |
+            curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
+            sudo dpkg -i cf-cli_amd64.deb
+            cf -v
+
+      - run:
+          name: Download latest production artifact from AWS S3 (AWS Permissions on CircleCI required)
+          command: aws s3 sync s3://my-company-production ~/ --delete --region eu-central-1
+          
+      - deploy:
+          name: Deploy latest production application to Staging - PWS CLoudFoundry (CF_PASSWORD variable required)
+          command: |
+            if [ -e "~/my-company-monolith-1.0.0-SNAPSHOT.jar" ]; then
+              cf api https://api.run.pivotal.io
+              cf auth idugalic@gmail.com $CF_PASSWORD
+              cf target -o idugalic -s Stage
+              cf push stage-my-company-monolith-prod -p ~/*.jar --no-start
+              cf bind-service stage-my-company-monolith-prod mysql
+              cf restart stage-my-company-monolith-prod 
+            else 
+              echo "Artifact does not exist"
+            fi 
+            
+      
+            
   
   # A very simple e2e test    
   staging-e2e:
     <<: *defaults
     steps:
-      - attach_workspace:
-          at: workspace/
-          
       - run: 
           name: End to end test on Staging
           command: curl -i https://stage-my-company-monolith.cfapps.io/health
       
-      
+  # A very simple e2e test of currnet production 
+  staging-e2e:
+    <<: *defaults
+    steps: 
+      - run: 
+          name: End to end test on Staging of current production
+          command: curl -i https://stage-my-company-monolith-prod.cfapps.io/health
+              
   production:
     <<: *defaults
     steps:
@@ -139,9 +174,21 @@ workflows:
           filters:
             branches:
               only: master
+      - staging-old:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
       - staging-e2e:
           requires:
             - staging
+          filters:
+            branches:
+              only: master
+      - staging-old-e2e:
+          requires:
+            - staging-old
           filters:
             branches:
               only: master
@@ -149,6 +196,7 @@ workflows:
           type: approval
           requires:
             - staging-e2e
+            - staging-old-e2e
           filters:
             branches:
               only: master
