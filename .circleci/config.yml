@@ -83,9 +83,8 @@ jobs:
             cf bind-service stage-my-company-monolith mysql
             cf restart stage-my-company-monolith
   
-  # Deploying current production on staging environemnt - backward compatibility testing.
+  # Deploying current production on staging environemnt for DB backward compatibility testing.
   # We are testing will the current production application work on the new database scheme that has been (possibly) changed during 'staging' job (Flyway will execute the schema migration upon application context setup).
-  # This way we make rollback to previous version possible.
   staging-prod:
     <<: *defaults
     steps:
@@ -182,11 +181,11 @@ jobs:
             cf map-route prod-my-company-monolith-B cfapps.io -n prod-my-company-monolith
             # Unmap temp Route to Green
             cf unmap-route prod-my-company-monolith-B cfapps.io -n prod-my-company-monolith-B
-            # Unmap Route to Blue
-            cf unmap-route prod-my-company-monolith cfapps.io -n prod-my-company-monolith
-            # Stop and rename current Blue in case you need to roll back your changes
-            cf stop prod-my-company-monolith -f
-            cf rename prod-my-company-monolith prod-my-company-monolith-old
+            # Unmap Route to Blue (only if Blue exist)
+            cf app prod-my-company-monolith && cf unmap-route prod-my-company-monolith cfapps.io -n prod-my-company-monolith
+            # Stop and rename current Blue in case you need to roll back your changes (only if Blue exist)
+            cf app prod-my-company-monolith && cf stop prod-my-company-monolith -f
+            cf app prod-my-company-monolith && cf rename prod-my-company-monolith prod-my-company-monolith-old
             # Rename Green to Blue
             cf rename prod-my-company-monolith-B prod-my-company-monolith
                            
