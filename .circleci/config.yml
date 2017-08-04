@@ -5,6 +5,7 @@ defaults: &defaults
     
 version: 2
 jobs:
+  # Build and test with maven
   build:
     <<: *defaults
     steps:
@@ -61,7 +62,7 @@ jobs:
           root: artifacts/
           paths:
             - .
-
+  # Deploying build artifact on staging environment for testing.
   staging:
     <<: *defaults
     steps:
@@ -83,8 +84,7 @@ jobs:
             cf bind-service stage-my-company-monolith mysql
             cf restart stage-my-company-monolith
   
-  # Deploying current production on staging environemnt for DB backward compatibility testing.
-  # We are testing will the current production application work on the new database scheme that has been (possibly) changed during 'staging' job (Flyway will execute the schema migration upon application context setup).
+  # Deploying current production on staging environemnt for DB schema backward compatibility testing.
   staging-prod:
     <<: *defaults
     steps:
@@ -127,7 +127,7 @@ jobs:
             fi 
 
   
-  # A very simple e2e test on staging env
+  # A very simple e2e test on staging environemnt
   staging-e2e:
     <<: *defaults
     steps:
@@ -138,8 +138,8 @@ jobs:
             curl -I "https://stage-my-company-monolith.cfapps.io/api/blogposts"
             curl -I "https://stage-my-company-monolith.cfapps.io/api/projects"
       
-  # A very simple e2e test of the currnet production application on staging environment. 
-  # Testing if DB schema of current production is matching currnet requirements of the application - backward compatibility testing.
+  # A very simple e2e test of the currnet production application on staging environment.
+  # DB schema backward compatibility testing. Testing if the latest DB schema is compatible with latest production application.
   staging-prod-e2e:
     <<: *defaults
     steps: 
@@ -150,6 +150,8 @@ jobs:
             curl -I "https://stage-my-company-monolith-prod.cfapps.io/api/blogposts"
             curl -I "https://stage-my-company-monolith-prod.cfapps.io/api/projects"
               
+  # Deploying build artifact on production environment with Blue-Green deployment strategy and the rollback posibility.
+  # Artifact is uploaded to AWS s3 as the latest production artifact as well. It is used within 'staging-prod' and 'staging-prod-e2e' jobs to test DB schema backward compatibility
   production:
     <<: *defaults
     steps:
@@ -193,7 +195,6 @@ jobs:
           name: Upload latest production artifact to AWS S3 (AWS Permissions on CircleCI required)
           command: aws s3 sync workspace/ s3://my-company-production --delete --region eu-central-1
           
-      
   
 workflows:
   version: 2
