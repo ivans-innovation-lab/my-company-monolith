@@ -1,0 +1,16 @@
+---
+kind: "operation"
+client: "com.atomist:rug"
+version: "1.0.0-20170728065612"
+editor:
+  name: "AddAtomistAgent"
+  group: "atomist"
+  artifact: "spring-team-handlers"
+  version: "0.7.9"
+  origin:
+    repo: "git@github.com:atomisthq/spring-team-handlers.git"
+    branch: "4048638c0f9941d771fbd8436204148b144ff3e5"
+    sha: "4048638"
+  parameters:
+    - "slackTeam": "T03LLQPNQ"
+

@@ -21,8 +21,8 @@ logging:
     org.springframework: INFO
     org.axonframework: DEBUG
     com.idugalic: DEBUG
-    
-authserver:
+    com.atomist.spring.agent: DEBUG
+    authserver:
   hostname: localhost
   port: 9999
   contextPath: uaa
@@ -50,7 +50,13 @@ spring:
       
 flyway:
   locations: db/migration/h2
-
+atomist:
+  enabled: true
+  debug: true
+  url: 'https://webhook.atomist.com/atomist/application/teams/T03LLQPNQ'
+  environment:
+    domain: '${DOMAIN:development}'
+    pod: '${HOSTNAME:${random.value}}'
 ---
 spring:
   profiles: cloud
