@@ -22,7 +22,8 @@ logging:
     org.axonframework: DEBUG
     com.idugalic: DEBUG
     com.atomist.spring.agent: DEBUG
-    authserver:
+
+authserver:
   hostname: localhost
   port: 9999
   contextPath: uaa
