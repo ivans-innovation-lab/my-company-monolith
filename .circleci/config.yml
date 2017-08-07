@@ -187,7 +187,7 @@ jobs:
             cf app prod-my-company-monolith && cf unmap-route prod-my-company-monolith cfapps.io -n prod-my-company-monolith
             # Stop and rename current Blue in case you need to roll back your changes (only if Blue exist)
             cf app prod-my-company-monolith && cf stop prod-my-company-monolith
-            cf app prod-my-company-monolith-old && cf delete prod-my-company-monolith-old
+            cf app prod-my-company-monolith-old && cf delete prod-my-company-monolith-old -f
             cf app prod-my-company-monolith && cf rename prod-my-company-monolith prod-my-company-monolith-old
             # Rename Green to Blue
             cf rename prod-my-company-monolith-B prod-my-company-monolith

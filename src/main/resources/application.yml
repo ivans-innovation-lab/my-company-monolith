@@ -56,8 +56,8 @@ atomist:
   debug: true
   url: 'https://webhook.atomist.com/atomist/application/teams/T03LLQPNQ'
   environment:
-    domain: '${DOMAIN:development}'
-    pod: '${HOSTNAME:${random.value}}'
+    domain: '${vcap.application.application_name:development}'
+    pod: '${vcap.application.application_name:${random.value}}'
 ---
 spring:
   profiles: cloud
