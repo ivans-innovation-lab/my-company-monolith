@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>my-company-monolith</artifactId>
@@ -139,11 +140,11 @@
 			<artifactId>spring-cloud-cloudfoundry-connector</artifactId>
 		</dependency>
 		<dependency>
-            <groupId>com.atomist</groupId>
-            <artifactId>spring-boot-agent</artifactId>
-            <version>[0.1.5,1.0.0)</version>
-        </dependency>
-    </dependencies>
+			<groupId>com.atomist</groupId>
+			<artifactId>spring-boot-agent</artifactId>
+			<version>[0.1.5,1.0.0)</version>
+		</dependency>
+	</dependencies>
 
 
 	<build>
@@ -206,36 +207,25 @@
 					</resources>
 				</configuration>
 			</plugin>
-
 			<plugin>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.2</version>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
 				<configuration>
-					<tagNameFormat>v@{project.version}</tagNameFormat>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<verbose>false</verbose>
 				</configuration>
-
 			</plugin>
-
-			<plugin>
-    <groupId>pl.project13.maven</groupId>
-    <artifactId>git-commit-id-plugin</artifactId>
-    <configuration>
-        <verbose>false</verbose>
-    </configuration>
-</plugin>
-        </plugins>
+		</plugins>
 	</build>
 
 
 	<repositories>
-	<repository>
-            <id>public-atomist-release</id>
-            <name>Atomist Release</name>
-            <url>https://atomist.jfrog.io/atomist/libs-release</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+		<repository>
+			<id>public-atomist-release</id>
+			<name>Atomist Release</name>
+			<url>https://atomist.jfrog.io/atomist/libs-release</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>

@@ -1,17 +1,13 @@
 package com.idugalic;
 
-import com.idugalic.commandside.blog.web.CreateBlogPostRequest;
-import com.idugalic.commandside.project.web.CreateProjectRequest;
-import com.idugalic.common.blog.model.BlogPostCategory;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Calendar;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -21,7 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.idugalic.commandside.blog.web.CreateBlogPostRequest;
+import com.idugalic.commandside.project.web.CreateProjectRequest;
+import com.idugalic.common.blog.model.BlogPostCategory;
 
 /**
  * Integration test for {@link Application} starting on a random port.
@@ -31,7 +29,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@AutoConfigureTestDatabase
 public class ApplicationIntegrationTest {
 
     @Autowired
