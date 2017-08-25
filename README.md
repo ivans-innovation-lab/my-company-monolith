@@ -118,38 +118,64 @@ http://localhost:8080
 
 ### Issuing Commands & Queries with CURL
 
+#### Get the token 
+JWT (shortened from JSON Web Token) is the missing standardization for using tokens to authenticate on the web in general, not only for REST services. Currently, it is in draft status as RFC 7519. It is robust and can carry a lot of information, but is still simple to use even though its size is relatively small. Like any other token, JWT can be used to pass the identity of authenticated users between an identity provider and a service provider (which are not necessarily the same systems). It can also carry all the user’s claim, such as authorization data, so the service provider does not need to go into the database or external systems to verify user roles and permissions for each request; that data is extracted from the token.
 
+Here is how JWT is designed to work:
+
+ - Clients logs in by sending their credentials to the identity provider.
+ - The identity provider verifies the credentials; if all is OK, it retrieves the user data, generates a JWT containing user details and permissions that will be used to access the services, and it also sets the expiration on the JWT (which might be unlimited).
+ - Identity provider signs, and if needed, encrypts the JWT and sends it to the client as a response to the initial request with credentials.
+ - Client stores the JWT for a limited or unlimited amount of time, depending on the expiration set by the identity provider.
+ - Client sends the stored JWT in an Authorization header for every request to the service provider.
+ - For each request, the service provider takes the JWT from the Authorization header and decrypts it, if needed, validates the signature, and if everything is OK, extracts the user data and permissions. Based on this data solely, and again without looking up further details in the database or contacting the identity provider, it can accept or deny the client request. The only requirement is that the identity and service providers have an agreement on encryption so that service can verify the signature or even decrypt which identity was encrypted.
+
+```
+$ curl testjwtclientid:MaYzkSjmkzPC57L@localhost:8080/oauth/token -d grant_type=password -d username=john.doe -d password=jwtpass
+
+```
+You'll receive a response similar to below
+```
+{
+ "access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDM3MTQ2MTgsInVzZXJfbmFtZSI6ImpvaG4uZG9lIiwiYXV0aG9yaXRpZXMiOlsiU1RBTkRBUkRfVVNFUiJdLCJqdGkiOiJiMDI5MGI3MS0zOTY2LTQ4ZTEtYThhOC02MzkzZjJjMjM1ZTYiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HJLARs7Q2Fdpkl0CP5X1hV6jBtri9tkIof61w16_X7w",
+ "token_type":"bearer",
+ "expires_in":43199,
+ "scope":"read write",
+ "jti":"b0290b71-3966-48e1-a8a8-6393f2c235e6"
+ }
+```
 #### Create Blog post
 
-
+Make sure to include correct token
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands
-
+$ curl -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDM3MTQ2MTgsInVzZXJfbmFtZSI6ImpvaG4uZG9lIiwiYXV0aG9yaXRpZXMiOlsiU1RBTkRBUkRfVVNFUiJdLCJqdGkiOiJiMDI5MGI3MS0zOTY2LTQ4ZTEtYThhOC02MzkzZjJjMjM1ZTYiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HJLARs7Q2Fdpkl0CP5X1hV6jBtri9tkIof61w16_X7w" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2018-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/api/blogpostcommands
 ```
 
 #### Publish Blog post
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands/{id}/publishcommand
+$ curl -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDM3MTQ2MTgsInVzZXJfbmFtZSI6ImpvaG4uZG9lIiwiYXV0aG9yaXRpZXMiOlsiU1RBTkRBUkRfVVNFUiJdLCJqdGkiOiJiMDI5MGI3MS0zOTY2LTQ4ZTEtYThhOC02MzkzZjJjMjM1ZTYiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HJLARs7Q2Fdpkl0CP5X1hV6jBtri9tkIof61w16_X7w" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/api/blogpostcommands/{id}/publishcommand
 
 ```
 
 #### Query Blog posts
 
 ```bash
-$ curl http://127.0.0.1:8080/blogposts
+$ curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDM3MTQ2MTgsInVzZXJfbmFtZSI6ImpvaG4uZG9lIiwiYXV0aG9yaXRpZXMiOlsiU1RBTkRBUkRfVVNFUiJdLCJqdGkiOiJiMDI5MGI3MS0zOTY2LTQ4ZTEtYThhOC02MzkzZjJjMjM1ZTYiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HJLARs7Q2Fdpkl0CP5X1hV6jBtri9tkIof61w16_X7w" http://127.0.0.1:8080/api/blogposts
 ```
 
 #### Create Project
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:8080/projectcommands
+$ curl -H "Content-Type: application/json" curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDM3MTQ2MTgsInVzZXJfbmFtZSI6ImpvaG4uZG9lIiwiYXV0aG9yaXRpZXMiOlsiU1RBTkRBUkRfVVNFUiJdLCJqdGkiOiJiMDI5MGI3MS0zOTY2LTQ4ZTEtYThhOC02MzkzZjJjMjM1ZTYiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HJLARs7Q2Fdpkl0CP5X1hV6jBtri9tkIof61w16_X7w" http://127.0.0.1:8080/api/blogposts
+ -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:8080/projectcommands
 
 ```
 #### Query Projects
 
 ```bash
-$ curl http://127.0.0.1:8080/projects
+$ curl curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDM3MTQ2MTgsInVzZXJfbmFtZSI6ImpvaG4uZG9lIiwiYXV0aG9yaXRpZXMiOlsiU1RBTkRBUkRfVVNFUiJdLCJqdGkiOiJiMDI5MGI3MS0zOTY2LTQ4ZTEtYThhOC02MzkzZjJjMjM1ZTYiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HJLARs7Q2Fdpkl0CP5X1hV6jBtri9tkIof61w16_X7w" http://127.0.0.1:8080/api/blogposts
+ http://127.0.0.1:8080/api/projects
 ```
 
 
