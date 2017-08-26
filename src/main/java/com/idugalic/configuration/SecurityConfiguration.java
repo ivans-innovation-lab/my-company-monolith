@@ -9,19 +9,26 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     static final String SIGNING_KEY = "MaYzkSjmkzPC57L";
     static final Integer ENCODING_STRENGTH = 256;
     static final String SECURITY_REALM = "Sprinb Boot JWT Example Realm";
 
+    @Autowired
+    private MyCorsFilter myCorsFilter;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -36,6 +43,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(new ShaPasswordEncoder(ENCODING_STRENGTH));
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.addFilterBefore(myCorsFilter, ChannelProcessingFilter.class)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/api/**").authenticated()
+                .antMatchers("/**").permitAll()
+                .and()
+                .httpBasic()
+                .and()
+                .csrf()
+                .disable();
     }
 
     @Bean
@@ -58,4 +81,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         defaultTokenServices.setSupportRefreshToken(true);
         return defaultTokenServices;
     }
+
 }
+

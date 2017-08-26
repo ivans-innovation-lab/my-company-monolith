@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -16,6 +17,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableAuthorizationServer
+@EnableResourceServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
     static final String CLIEN_ID = "testjwtclientid";
     static final String GRANT_TYPE = "password";
@@ -52,5 +54,4 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .tokenEnhancer(enhancerChain)
                 .authenticationManager(authenticationManager);
     }
-
 }
