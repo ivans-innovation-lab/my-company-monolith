@@ -34,7 +34,14 @@ public class BlogController {
 
     private static final Logger LOG = LoggerFactory.getLogger(BlogController.class);
 
-    private String getCurrentUser() {
+    private CommandGateway commandGateway;
+    
+    @Autowired
+    public BlogController(CommandGateway commandGateway) {
+		this.commandGateway = commandGateway;
+	}
+
+	private String getCurrentUser() {
         if (SecurityContextHolder.getContext().getAuthentication() != null) {
             return SecurityContextHolder.getContext().getAuthentication().getName();
         }
@@ -45,8 +52,7 @@ public class BlogController {
         return new AuditEntry(getCurrentUser());
     }
 
-    @Autowired
-    private CommandGateway commandGateway;
+   
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)

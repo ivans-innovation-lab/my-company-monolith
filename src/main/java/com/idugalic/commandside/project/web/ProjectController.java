@@ -33,8 +33,15 @@ import com.idugalic.common.model.AuditEntry;
 public class ProjectController {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProjectController.class);
+    
+    private CommandGateway commandGateway;
+    
+    @Autowired
+    public ProjectController(CommandGateway commandGateway) {
+		this.commandGateway = commandGateway;
+	}
 
-    private String getCurrentUser() {
+	private String getCurrentUser() {
         if (SecurityContextHolder.getContext().getAuthentication() != null) {
             return SecurityContextHolder.getContext().getAuthentication().getName();
         }
@@ -44,9 +51,6 @@ public class ProjectController {
     private AuditEntry createAudit() {
         return new AuditEntry(getCurrentUser());
     }
-
-    @Autowired
-    private CommandGateway commandGateway;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
