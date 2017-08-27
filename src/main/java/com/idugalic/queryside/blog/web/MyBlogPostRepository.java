@@ -12,5 +12,5 @@ import com.idugalic.queryside.blog.repository.BlogPostRepository;
  *
  */
 @RepositoryRestResource(collectionResourceRel = "blogposts", path = "blogposts")
-public interface MyBlogPostRepository extends BlogPostRepository {
+interface MyBlogPostRepository extends BlogPostRepository {
 }

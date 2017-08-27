@@ -12,5 +12,5 @@ import com.idugalic.queryside.project.repository.ProjectRepository;
  *
  */
 @RepositoryRestResource(collectionResourceRel = "projects", path = "projects")
-public interface MyProjectRepository extends ProjectRepository {
+interface MyProjectRepository extends ProjectRepository {
 }
