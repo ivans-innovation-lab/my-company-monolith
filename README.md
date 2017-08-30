@@ -81,7 +81,7 @@ $ git clone https://github.com/ivans-innovation-lab/my-company-monolithic-web.gi
 
 ### Step 2: Build the project
 
-This application depends on other librariries (please make them available in your local maven repository):
+This application depends on other librariries (all available under http://maven.idugalic.pro/)
 
 - [my-company-blog-domain (**command-side**)](https://github.com/ivans-innovation-lab/my-company-blog-domain.git)
 - [my-company-project-domain (**command-side**)](https://github.com/ivans-innovation-lab/my-company-project-domain.git)
@@ -93,6 +93,7 @@ This application depends on other librariries (please make them available in you
 
 ```bash
 $ cd my-company-monolithic-web
+$ ./mvnw clean install
 $ ./mvnw spring-boot:run
 ```
 
