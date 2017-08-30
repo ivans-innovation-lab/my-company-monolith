@@ -219,6 +219,22 @@
 
 	<repositories>
 		<repository>
+			<id>idugalic-releases</id>
+			<name>idugalic-releases</name>
+			<url>http://maven.idugalic.pro/artifactory/local-release-repository</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>idugalic-snapshots</id>
+			<name>idugalic-snapshots</name>
+			<url>http://maven.idugalic.pro/artifactory/local-repository</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
 			<id>public-atomist-release</id>
 			<name>Atomist Release</name>
 			<url>https://atomist.jfrog.io/atomist/libs-release</url>
