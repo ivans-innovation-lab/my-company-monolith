@@ -42,8 +42,8 @@ CREATE TABLE `blog_post` (
   `draft` bit(1) DEFAULT NULL,
   `public_slug` varchar(255) DEFAULT NULL,
   `publish_at` datetime DEFAULT NULL,
-  `raw_content` varchar(255) DEFAULT NULL,
-  `render_content` varchar(255) DEFAULT NULL,
+  `raw_content` varchar(10255) DEFAULT NULL,
+  `render_content` varchar(10255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `version` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
