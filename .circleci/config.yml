@@ -113,7 +113,7 @@ jobs:
               cf api https://api.run.pivotal.io
               cf auth idugalic@gmail.com $CF_PASSWORD
               cf target -o idugalic -s Stage
-              cf push stage-my-company-monolith-prod -p ./*.jar --no-start
+              cf push stage-my-company-monolith-prod -p workspace/*.jar --no-start
               cf bind-service stage-my-company-monolith-prod mysql
               cf restart stage-my-company-monolith-prod 
             else 
