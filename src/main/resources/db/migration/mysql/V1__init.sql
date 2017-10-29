@@ -118,7 +118,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `team_member`;
 CREATE TABLE `team_member` (
-  `id` varchar(255) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `user_id` varchar(255) DEFAULT NULL,
   `start_date` datetime DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,
@@ -127,7 +127,7 @@ CREATE TABLE `team_member` (
   PRIMARY KEY (`id`),
   KEY `FKp6ovpc4soflfcjbafch33w2kz` (`team_id`),
   CONSTRAINT `FKp6ovpc4soflfcjbafch33w2kz` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 
 
