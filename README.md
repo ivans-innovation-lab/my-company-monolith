@@ -22,6 +22,12 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
             * [Query Blog posts](#query-blog-posts)
             * [Create Project](#create-project)
             * [Query Projects](#query-projects)
+            * [Create Team](#create-team)
+            * [Query Team](#query-team)
+            * [Activate Team](#activate-team)
+            * [Deactivate Team](#passivate-team)
+            * [Add member to the team](#add-member-to-the-team)
+            * [Remove member from the team](#remove-member-from-the-team)
          * [Angular application](#angular-application)
       * [References and further reading](#references-and-further-reading)
 
