@@ -104,7 +104,7 @@ jobs:
 
       - run:
           name: Download latest production artifact from AWS S3 (AWS Permissions on CircleCI required)
-          command: aws s3 sync s3://my-company-production . --delete --region eu-central-1
+          command: aws s3 sync s3://my-company-production . --region eu-central-1
           
       - deploy:
           name: Deploy latest production application to Staging - PWS CLoudFoundry (CF_PASSWORD variable required)
