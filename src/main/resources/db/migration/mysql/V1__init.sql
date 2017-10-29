@@ -115,6 +115,22 @@ CREATE TABLE `team` (
 LOCK TABLES `team` WRITE;
 UNLOCK TABLES;
 
+
+DROP TABLE IF EXISTS `team_member`;
+CREATE TABLE `team_member` (
+  `id` varchar(255) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `weekly_hours` bigint(20) DEFAULT NULL,
+  `team_id` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKp6ovpc4soflfcjbafch33w2kz` (`team_id`),
+  CONSTRAINT `FKp6ovpc4soflfcjbafch33w2kz` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 --
 -- Table structure for table `saga_entry`
 --
