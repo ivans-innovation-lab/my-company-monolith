@@ -15,7 +15,7 @@ jobs:
       # Downloading from a Remote Repository in Maven is triggered by a project declaring a dependency that is not present in the local repository (or for a SNAPSHOT, when the remote repository contains one that is newer).
       # Do not overwrite your release (not snapshots) artifacts (my-company-blog-domain, my-company-blog-materialized-view, my-company-project-domain, my-company-project-materialized-view) on remote maven repository, othervise the cache will become stale.
       - restore_cache:
-          key: my-company-monolith0001-{{ checksum "pom.xml" }}
+          key: my-company-monolith0002-{{ checksum "pom.xml" }}
 
       - run: 
           name: Install maven artifact
@@ -34,7 +34,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.m2
-          key: my-company-monolith0001-{{ checksum "pom.xml" }}
+          key: my-company-monolith0002-{{ checksum "pom.xml" }}
       
       - run:
           name: Collecting test results
