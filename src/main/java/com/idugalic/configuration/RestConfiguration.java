@@ -16,6 +16,8 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import com.idugalic.queryside.blog.domain.BlogPost;
 import com.idugalic.queryside.project.domain.Project;
+import com.idugalic.queryside.team.domain.Member;
+import com.idugalic.queryside.team.domain.Team;
 
 /**
  * A configuration of rest data respositories for {@link BlogPost} and {@link Project}.
@@ -31,7 +33,7 @@ public class RestConfiguration extends RepositoryRestMvcConfiguration {
     static class RestConfigurationExposeId extends RepositoryRestConfigurerAdapter {
         @Override
         public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-            config.exposeIdsFor(BlogPost.class, Project.class);
+            config.exposeIdsFor(BlogPost.class, Project.class, Team.class, Member.class);
             config.setBasePath("/api");
         }
     }

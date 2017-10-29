@@ -128,41 +128,76 @@ You'll receive a response similar to below
 ```
 #### Create Blog post
 
-Make sure to include correct token
+Make sure to include correct token.
+
+In our case replace <TOKEN> with eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDM3MTQ2MTgsInVzZXJfbmFtZSI6ImpvaG4uZG9lIiwiYXV0aG9yaXRpZXMiOlsiU1RBTkRBUkRfVVNFUiJdLCJqdGkiOiJiMDI5MGI3MS0zOTY2LTQ4ZTEtYThhOC02MzkzZjJjMjM1ZTYiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HJLARs7Q2Fdpkl0CP5X1hV6jBtri9tkIof61w16_X7w
+
 ```bash
-$ curl -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDM3MTQ2MTgsInVzZXJfbmFtZSI6ImpvaG4uZG9lIiwiYXV0aG9yaXRpZXMiOlsiU1RBTkRBUkRfVVNFUiJdLCJqdGkiOiJiMDI5MGI3MS0zOTY2LTQ4ZTEtYThhOC02MzkzZjJjMjM1ZTYiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HJLARs7Q2Fdpkl0CP5X1hV6jBtri9tkIof61w16_X7w" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2018-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/api/blogpostcommands
+$ curl -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2018-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/api/blogpostcommands
 ```
 
 #### Publish Blog post
 
 ```bash
-$ curl -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDM3MTQ2MTgsInVzZXJfbmFtZSI6ImpvaG4uZG9lIiwiYXV0aG9yaXRpZXMiOlsiU1RBTkRBUkRfVVNFUiJdLCJqdGkiOiJiMDI5MGI3MS0zOTY2LTQ4ZTEtYThhOC02MzkzZjJjMjM1ZTYiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HJLARs7Q2Fdpkl0CP5X1hV6jBtri9tkIof61w16_X7w" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/api/blogpostcommands/{id}/publishcommand
+$ curl -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/api/blogpostcommands/{id}/publishcommand
 
 ```
 
 #### Query Blog posts
 
 ```bash
-$ curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDM3MTQ2MTgsInVzZXJfbmFtZSI6ImpvaG4uZG9lIiwiYXV0aG9yaXRpZXMiOlsiU1RBTkRBUkRfVVNFUiJdLCJqdGkiOiJiMDI5MGI3MS0zOTY2LTQ4ZTEtYThhOC02MzkzZjJjMjM1ZTYiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HJLARs7Q2Fdpkl0CP5X1hV6jBtri9tkIof61w16_X7w" http://127.0.0.1:8080/api/blogposts
+$ curl -H "Authorization: Bearer <TOKEN>" http://127.0.0.1:8080/api/blogposts
 ```
 
 #### Create Project
 
 ```bash
-$ curl -H "Content-Type: application/json" curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDM3MTQ2MTgsInVzZXJfbmFtZSI6ImpvaG4uZG9lIiwiYXV0aG9yaXRpZXMiOlsiU1RBTkRBUkRfVVNFUiJdLCJqdGkiOiJiMDI5MGI3MS0zOTY2LTQ4ZTEtYThhOC02MzkzZjJjMjM1ZTYiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HJLARs7Q2Fdpkl0CP5X1hV6jBtri9tkIof61w16_X7w" http://127.0.0.1:8080/api/blogposts
- -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:8080/projectcommands
+$ curl -H "Content-Type: application/json" curl -H "Authorization: Bearer <TOKEN>" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:8080/api/projectcommands
 
 ```
 #### Query Projects
 
 ```bash
-$ curl curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDM3MTQ2MTgsInVzZXJfbmFtZSI6ImpvaG4uZG9lIiwiYXV0aG9yaXRpZXMiOlsiU1RBTkRBUkRfVVNFUiJdLCJqdGkiOiJiMDI5MGI3MS0zOTY2LTQ4ZTEtYThhOC02MzkzZjJjMjM1ZTYiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HJLARs7Q2Fdpkl0CP5X1hV6jBtri9tkIof61w16_X7w" http://127.0.0.1:8080/api/blogposts
- http://127.0.0.1:8080/api/projects
+$ curl curl -H "Authorization: Bearer <TOKEN>" http://127.0.0.1:8080/api/projects
 ```
 
+#### Create team
+
+```bash
+$ curl  -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST -d '{"name":"Name","description": "sdfsdfsdf"}' http://localhost:8080/api/teamcommands
+```
+
+#### Query team
+
+```bash
+$ curl  -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>"  http://localhost:8080/api/team
+```
+
+#### Activate team
+
+```bash
+$ curl  -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST  http://localhost:8080/api/teamcommands/<TEAM_ID>/activatecommand
+```
+#### Passivate team
+
+```bash
+$ curl  -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST  http://localhost:8080/api/teamcommands/<TEAM_ID>/passivatecommand
+```
+#### Add member to the team
+
+```bash
+$ curl  -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST  -d '{"userId":"user-id","weeklyHours": "100"}' http://localhost:8080/api/teamcommands/<TEAM_ID>/addmembercommand
+```
+
+#### Remove member from the team
+
+```bash
+$ curl  -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST  http://localhost:8080/api/teamcommands/<TEAM_ID>/removemembercommand/<MEMBER_ID>
+```
 
 ### Angular application
-[Angular 4 application](https://github.com/ivans-innovation-lab/my-company-angular-fe) is a consumer of this API and represents the Frontend part.
+
+[Angular 4 application](https://github.com/ivans-innovation-lab/my-company-angular-fe) is a consumer of this API and represents the Front-end part of the solution.
 
 ## References and further reading
 
