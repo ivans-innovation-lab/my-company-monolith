@@ -134,9 +134,7 @@ You'll receive a response similar to below
 ```
 #### Create Blog post
 
-Make sure to include correct token.
-
-In our case replace <TOKEN> with eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDM3MTQ2MTgsInVzZXJfbmFtZSI6ImpvaG4uZG9lIiwiYXV0aG9yaXRpZXMiOlsiU1RBTkRBUkRfVVNFUiJdLCJqdGkiOiJiMDI5MGI3MS0zOTY2LTQ4ZTEtYThhOC02MzkzZjJjMjM1ZTYiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HJLARs7Q2Fdpkl0CP5X1hV6jBtri9tkIof61w16_X7w
+Make sure to include correct access token below.
 
 ```bash
 $ curl -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2018-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/api/blogpostcommands
