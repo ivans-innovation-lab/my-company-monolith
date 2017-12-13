@@ -147,6 +147,13 @@ $ curl -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X
 
 ```
 
+#### UnPublish Blog post
+
+```bash
+$ curl -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST  http://127.0.0.1:8080/api/blogpostcommands/{id}/unpublishcommand
+
+```
+
 #### Query Blog posts
 
 ```bash
@@ -156,7 +163,25 @@ $ curl -H "Authorization: Bearer <TOKEN>" http://127.0.0.1:8080/api/blogposts
 #### Create Project
 
 ```bash
-$ curl -H "Content-Type: application/json" curl -H "Authorization: Bearer <TOKEN>" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:8080/api/projectcommands
+$ curl -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "desc"}' http://127.0.0.1:8080/api/projectcommands
+
+```
+#### Update Project
+
+```bash
+$ curl -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST -d '{"name":"Name2","repoUrl":"URL2","siteUrl": "siteUrl2","description": "desc2"}' http://127.0.0.1:8080/api/projectcommands/{id}/updatecommand
+
+```
+#### Activate Project
+
+```bash
+$ curl -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST http://127.0.0.1:8080/api/projectcommands/{id}/activatecommand
+
+```
+#### DeActivate Project
+
+```bash
+$ curl -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST http://127.0.0.1:8080/api/projectcommands/{id}/deactivatecommand
 
 ```
 #### Query Projects

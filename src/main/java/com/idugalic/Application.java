@@ -29,7 +29,7 @@ public class Application {
     	 SpringApplication app = new SpringApplication(Application.class);
          Environment env = app.run(args).getEnvironment();
          LOG.info("\n----------------------------------------------------------\n\t" +
-                 "Application '{}' is running! Access URLs:\n\t" +
+                 "Application 'My Company - monolith' is running! Access URLs:\n\t" +
                  "Local: \t\thttp://127.0.0.1:{}\n\t" +
                  "External: \thttp://{}:{}\n----------------------------------------------------------",
              env.getProperty("spring.application.name"),

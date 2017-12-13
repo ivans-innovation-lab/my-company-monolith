@@ -4,6 +4,8 @@ import java.security.Principal;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.idugalic.commandside.project.command.ActivateProjectCommand;
+import com.idugalic.commandside.project.command.DeactivateProjectCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +67,27 @@ public class ProjectController {
     @RequestMapping(value = "/{id}/updatecommand", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public void update(@PathVariable String id, @RequestBody UpdateProjectRequest request, HttpServletResponse response, Principal principal) {
+        System.out.println("################################ URAAA");
         LOG.debug(UpdateProjectRequest.class.getSimpleName() + " request received");
         UpdateProjectCommand command = new UpdateProjectCommand(id, createAudit(), request.getName(), request.getRepoUrl(), request.getSiteUrl(), request.getDescription());
         commandGateway.sendAndWait(command);
         LOG.debug(UpdateProjectCommand.class.getSimpleName() + " sent to command gateway: Project [{}] ", command.getId());
+    }
+
+    @RequestMapping(value = "/{id}/activatecommand", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.ACCEPTED)
+    public void activate(@PathVariable String id, HttpServletResponse response, Principal principal) {
+        ActivateProjectCommand command = new ActivateProjectCommand(id, createAudit());
+        commandGateway.sendAndWait(command);
+        LOG.debug(ActivateProjectCommand.class.getSimpleName() + " sent to command gateway: Project [{}] ", command.getId());
+    }
+
+    @RequestMapping(value = "/{id}/deactivatecommand", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.ACCEPTED)
+    public void deactivate(@PathVariable String id, HttpServletResponse response, Principal principal) {
+        DeactivateProjectCommand command = new DeactivateProjectCommand(id, createAudit());
+        commandGateway.sendAndWait(command);
+        LOG.debug(DeactivateProjectCommand.class.getSimpleName() + " sent to command gateway: Project [{}] ", command.getId());
     }
 
 }
