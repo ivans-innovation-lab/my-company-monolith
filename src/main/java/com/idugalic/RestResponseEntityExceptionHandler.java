@@ -63,10 +63,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
             if (cex.getCause() instanceof ConcurrencyException) {
                 return handleExceptionInternal(cex, bodyOfResponse + " - Concurrency issue", new HttpHeaders(), HttpStatus.CONFLICT, request);
             }
-            if (cex.getCause() instanceof PublishBlogPostException) {
-                return handleExceptionInternal(cex, bodyOfResponse + " - " + cex.getCause().getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
-            }
-
         }
         return handleExceptionInternal(cex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
@@ -99,6 +95,15 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.FORBIDDEN, request);
     }
 
+    // Custom exception handling
+    @ExceptionHandler({PublishBlogPostException.class})
+    public ResponseEntity<Object> handleBadRequest(final PublishBlogPostException ex, final WebRequest request) {
+        final String bodyOfResponse = "PublishBlogPostException";
+        LOG.error(bodyOfResponse, ex);
+        return handleExceptionInternal(ex, ex, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    // JSR303 - Validation error hadling
     @ExceptionHandler({JSR303ViolationException.class})
     public ResponseEntity<Object> handleValidation(final JSR303ViolationException ex, final WebRequest request) {
         LOG.error("Validation error", ex);
