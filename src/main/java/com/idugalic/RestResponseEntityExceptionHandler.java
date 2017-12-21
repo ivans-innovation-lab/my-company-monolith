@@ -1,13 +1,11 @@
 package com.idugalic;
 
 import com.idugalic.commandside.blog.aggregate.exception.PublishBlogPostException;
-
 import org.axonframework.commandhandling.CommandExecutionException;
 import org.axonframework.commandhandling.model.ConcurrencyException;
 import org.axonframework.messaging.interceptors.JSR303ViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -22,12 +20,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.io.Serializable;
+import java.util.stream.Collectors;
+
 /**
  * A general exception handler.
  * It maps exception type to a response.
- * 
- * @author idugalic
  *
+ * @author idugalic
  */
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -53,8 +53,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, bodyOfResponse, headers, HttpStatus.BAD_REQUEST, request);
     }
 
-    // TODO Consider handling validation and other errors/exceptions here
-    @ExceptionHandler({ CommandExecutionException.class })
+    // CommandExecution exceptions
+    @ExceptionHandler({CommandExecutionException.class})
     protected ResponseEntity<Object> handleCommandExecution(final RuntimeException cex, final WebRequest request) {
         final String bodyOfResponse = "CommandExecutionException";
         if (null != cex.getCause()) {
@@ -71,38 +71,50 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(cex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler({ InvalidDataAccessApiUsageException.class, DataAccessException.class })
+    @ExceptionHandler({InvalidDataAccessApiUsageException.class, DataAccessException.class})
     protected ResponseEntity<Object> handleConflict(final RuntimeException ex, final WebRequest request) {
         final String bodyOfResponse = "DataAccessException";
         LOG.error(bodyOfResponse, ex);
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
-    @ExceptionHandler({ DataIntegrityViolationException.class })
+    @ExceptionHandler({DataIntegrityViolationException.class})
     public ResponseEntity<Object> handleBadRequest(final DataIntegrityViolationException ex, final WebRequest request) {
         final String bodyOfResponse = "DataIntegrityViolationException";
         LOG.error(bodyOfResponse, ex);
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler({ NullPointerException.class, IllegalArgumentException.class, IllegalStateException.class })
+    @ExceptionHandler({NullPointerException.class, IllegalArgumentException.class, IllegalStateException.class})
     public ResponseEntity<Object> handleInternal(final RuntimeException ex, final WebRequest request) {
         final String bodyOfResponse = "Internal Error";
         LOG.error(bodyOfResponse, ex);
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
-    @ExceptionHandler({ JSR303ViolationException.class })
-    public ResponseEntity<Object> handleValidation(final JSR303ViolationException ex, final WebRequest request) {
-        // TODO do it properly !!!!
-        final String bodyOfResponse = ex.getViolations().toString();
-        LOG.error("Validation error", ex);
-        return new ResponseEntity<Object>(bodyOfResponse, HttpStatus.BAD_REQUEST);
+    @ExceptionHandler({AccessDeniedException.class})
+    public ResponseEntity<Object> handleAccessDeniedException(Exception ex, WebRequest request) {
+        final String bodyOfResponse = "Access denied";
+        LOG.error(bodyOfResponse, ex);
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.FORBIDDEN, request);
     }
 
-    @ExceptionHandler({ AccessDeniedException.class })
-    public ResponseEntity<Object> handleAccessDeniedException(Exception ex, WebRequest request) {
-        return new ResponseEntity<Object>("Access denied message here", new HttpHeaders(), HttpStatus.FORBIDDEN);
+    @ExceptionHandler({JSR303ViolationException.class})
+    public ResponseEntity<Object> handleValidation(final JSR303ViolationException ex, final WebRequest request) {
+        LOG.error("Validation error", ex);
+        return new ResponseEntity<Object>(ex.getViolations().stream().map(v -> {
+            JSR303Violation error = new JSR303Violation();
+            error.message = v.getMessage();
+            error.propertyPath = v.getPropertyPath().toString();
+            error.className = v.getRootBeanClass().getSimpleName();
+            return error;
+        }).collect(Collectors.toList()), HttpStatus.BAD_REQUEST);
+    }
+
+    class JSR303Violation implements Serializable {
+        public String message;
+        public String propertyPath;
+        public String className;
     }
 
 }
