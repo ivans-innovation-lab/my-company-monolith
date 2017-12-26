@@ -3,8 +3,12 @@ package com.idugalic.commandside.blog.web;
 import com.idugalic.commandside.blog.command.CreateBlogPostCommand;
 
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 
+import com.idugalic.common.blog.model.BlogPostCategory;
 import org.axonframework.commandhandling.CommandExecutionException;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.messaging.interceptors.JSR303ViolationException;
@@ -45,6 +49,8 @@ public class BlogControllerTest {
             Charset.forName("utf8"));
 
     private JacksonTester<CreateBlogPostRequest> jsonCreate;
+    private Calendar future;
+
     
     @MockBean
     private CommandGateway commandGateway;
@@ -54,12 +60,21 @@ public class BlogControllerTest {
         ObjectMapper objectMapper = new ObjectMapper(); 
         // Possibly configure the mapper
         JacksonTester.initFields(this, objectMapper);
+        future = Calendar.getInstance();
+        future.add(Calendar.DAY_OF_YEAR, 1);
     }
 
     @Test
-    public void createBlogPostWithValidationErrorTest() throws Exception {
+    public void createBlogPostWithCommandValidationErrorTest() throws Exception {
         
         CreateBlogPostRequest request = new CreateBlogPostRequest();
+        request.setBroadcast(Boolean.FALSE);
+        request.setCategory(BlogPostCategory.ENGINEERING);
+        request.setTitle("Title");
+        request.setDraft(Boolean.FALSE);
+        request.setPublishAt(future.getTime());
+        request.setRawContent("raw");
+        request.setPublicSlug("slug");
         given(this.commandGateway.sendAndWait(any(CreateBlogPostCommand.class))).willThrow(new CommandExecutionException("Test", new JSR303ViolationException(new HashSet())));
         
         this.mvc.perform(post("/api/blogpostcommands")
@@ -68,9 +83,26 @@ public class BlogControllerTest {
                 .andExpect(status().isBadRequest());
     }
     @Test
+    public void createBlogPostWithRequestValidationErrorTest() throws Exception {
+
+        CreateBlogPostRequest emmptyRequest = new CreateBlogPostRequest();
+
+        this.mvc.perform(post("/api/blogpostcommands")
+                .content(this.jsonCreate.write(emmptyRequest).getJson())
+                .contentType(contentType))
+                .andExpect(status().isBadRequest());
+    }
+    @Test
     public void createBlogPostWithSuccessTest() throws Exception {
         
         CreateBlogPostRequest request = new CreateBlogPostRequest();
+        request.setBroadcast(Boolean.FALSE);
+        request.setCategory(BlogPostCategory.ENGINEERING);
+        request.setTitle("Title");
+        request.setDraft(Boolean.FALSE);
+        request.setPublishAt(future.getTime());
+        request.setRawContent("raw");
+        request.setPublicSlug("slug");
         given(this.commandGateway.sendAndWait(any(CreateBlogPostCommand.class))).willReturn("Success");
         
         this.mvc.perform(post("/api/blogpostcommands")
