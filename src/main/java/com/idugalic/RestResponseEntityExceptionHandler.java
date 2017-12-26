@@ -24,8 +24,9 @@ import java.io.Serializable;
 import java.util.stream.Collectors;
 
 /**
- * A general exception handler.
+ * A general exception handler for the application.
  * It maps exception type to a response.
+ * You can override handlers from @ResponseEntityExceptionHandler, for example handleMethodArgumentNotValid.
  *
  * @author idugalic
  */
@@ -37,23 +38,24 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         super();
     }
 
-    @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex, final HttpHeaders headers, final HttpStatus status,
-                                                                  final WebRequest request) {
-        final String bodyOfResponse = "HttpMessageNotReadableException";
-        LOG.error(bodyOfResponse, ex);
-        return handleExceptionInternal(ex, bodyOfResponse, headers, HttpStatus.BAD_REQUEST, request);
-    }
+    // ########## Override of ResponseEntityExceptionHandler ############
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status,
                                                                   final WebRequest request) {
-        final String bodyOfResponse = "MethodArgumentNotValidException";
-        LOG.error(bodyOfResponse, ex);
-        return handleExceptionInternal(ex, bodyOfResponse, headers, HttpStatus.BAD_REQUEST, request);
+
+        return new ResponseEntity<Object>(ex.getBindingResult().getFieldErrors().stream().map(v -> {
+            JSR303Violation error = new JSR303Violation();
+            error.type = JSR303ViolationType.REQUEST_VIOLATION;
+            error.message = v.getDefaultMessage();
+            error.propertyPath = v.getField();
+            error.className = v.getObjectName();
+            return error;
+        }).collect(Collectors.toList()), HttpStatus.BAD_REQUEST);
     }
 
-    // CommandExecution exceptions
+    // ########## CommandExecution exceptions ##########
+
     @ExceptionHandler({CommandExecutionException.class})
     protected ResponseEntity<Object> handleCommandExecution(final RuntimeException cex, final WebRequest request) {
         final String bodyOfResponse = "CommandExecutionException";
@@ -95,7 +97,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.FORBIDDEN, request);
     }
 
-    // Custom exception handling
+    // ########## Custom exception handling ##########
+
     @ExceptionHandler({PublishBlogPostException.class})
     public ResponseEntity<Object> handleBadRequest(final PublishBlogPostException ex, final WebRequest request) {
         final String bodyOfResponse = "PublishBlogPostException";
@@ -103,12 +106,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, ex, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    // JSR303 - Validation error hadling
+    // ########## JSR303 - Command Validation error handling ##########
+
     @ExceptionHandler({JSR303ViolationException.class})
     public ResponseEntity<Object> handleValidation(final JSR303ViolationException ex, final WebRequest request) {
         LOG.error("Validation error", ex);
         return new ResponseEntity<Object>(ex.getViolations().stream().map(v -> {
             JSR303Violation error = new JSR303Violation();
+            error.type = JSR303ViolationType.COMMAND_VIOLATION;
             error.message = v.getMessage();
             error.propertyPath = v.getPropertyPath().toString();
             error.className = v.getRootBeanClass().getSimpleName();
@@ -120,6 +125,12 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         public String message;
         public String propertyPath;
         public String className;
+        public JSR303ViolationType type;
+    }
+
+    enum JSR303ViolationType {
+        REQUEST_VIOLATION,
+        COMMAND_VIOLATION
     }
 
 }

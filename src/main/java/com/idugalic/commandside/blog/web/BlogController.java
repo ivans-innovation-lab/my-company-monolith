@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.security.Principal;
 
 /**
@@ -48,7 +49,7 @@ public class BlogController {
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void create(@RequestBody CreateBlogPostRequest request, HttpServletResponse response, Principal principal) {
+    public void create(@Valid @RequestBody CreateBlogPostRequest request, HttpServletResponse response, Principal principal) {
         LOG.debug(CreateBlogPostRequest.class.getSimpleName() + " request received");
 
         CreateBlogPostCommand command = new CreateBlogPostCommand(createAudit(), request.getTitle(),

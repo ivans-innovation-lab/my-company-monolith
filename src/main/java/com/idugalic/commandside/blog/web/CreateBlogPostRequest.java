@@ -3,6 +3,10 @@ package com.idugalic.commandside.blog.web;
 import java.util.Date;
 
 import com.idugalic.common.blog.model.BlogPostCategory;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 
 /**
  * A web request data transfer object for {@link CreateBlogPostCommand}
@@ -12,12 +16,23 @@ import com.idugalic.common.blog.model.BlogPostCategory;
  */
 public class CreateBlogPostRequest {
 
+    @NotNull(message = "Title is mandatory")
+    @NotBlank(message = "Title is mandatory")
     private String title;
+    @NotNull(message = "rawContent is mandatory")
+    @NotBlank(message = "rawContent is mandatory")
     private String rawContent;
+    @NotNull(message = "PublicSlug is mandatory")
+    @NotBlank(message = "PublicSlug is mandatory")
     private String publicSlug;
+    @NotNull
     private Boolean draft;
+    @NotNull
     private Boolean broadcast;
+    @Future(message = "'Publish at' date must be in the future")
+    @NotNull
     private Date publishAt;
+    @NotNull
     private BlogPostCategory category;
 
     public CreateBlogPostRequest() {
