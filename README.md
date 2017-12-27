@@ -39,10 +39,10 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
 
 ## Technologies
 
-- [Spring Boot](http://projects.spring.io/spring-boot/) (v1.4.1.RELEASE)
+- [Spring Boot](http://projects.spring.io/spring-boot/)
 - [Spring Data](http://projects.spring.io/spring-data/)
 - [Spring Data REST](http://projects.spring.io/spring-data-rest/)
-- [Axon Framework](http://www.axonframework.org/) (v3.0-RC1)
+- [Axon Framework](http://www.axonframework.org/)
 
 
 ## Key benefits
@@ -71,21 +71,26 @@ The **query-side (materialized view)** is an event-listener and processor. It li
 
 This application have REST API's which can be used to access capabilities of a the domain and all materialized views.
 
+## Development
 
-## Running instructions
+This project is driven using [Maven][mvn].
 
-### Prerequisite
+[mvn]: https://maven.apache.org/
+
+### Running instructions
+
+#### Prerequisite
 
 - [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [Git](https://git-scm.com/) 
 
-### Step 1: Clone the project
+#### Step 1: Clone the project
 
 ```bash
 $ git clone https://github.com/ivans-innovation-lab/my-company-monolithic-web.git
 ```
 
-### Step 2: Build the project
+#### Step 2: Build the project
 
 This application depends on other librariries (all available under http://maven.idugalic.pro/)
 
@@ -95,7 +100,7 @@ This application depends on other librariries (all available under http://maven.
 - [my-company-project-materialized-view (**query-side**)](https://github.com/ivans-innovation-lab/my-company-project-materialized-view.git)
 
 
-### Step 3: Run it
+#### Step 3: Run it
 
 ```bash
 $ cd my-company-monolithic-web
