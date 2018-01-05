@@ -2,6 +2,7 @@ package com.idugalic.configuration;
 
 import java.lang.reflect.Method;
 
+import com.idugalic.security.domain.User;
 import org.springframework.boot.autoconfigure.web.WebMvcRegistrationsAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +34,7 @@ public class RestConfiguration extends RepositoryRestMvcConfiguration {
     static class RestConfigurationExposeId extends RepositoryRestConfigurerAdapter {
         @Override
         public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-            config.exposeIdsFor(BlogPost.class, Project.class, Team.class, Member.class);
+            config.exposeIdsFor(BlogPost.class, Project.class, Team.class, Member.class, User.class);
             config.setBasePath("/api");
         }
     }
