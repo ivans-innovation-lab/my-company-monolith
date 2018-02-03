@@ -28,6 +28,7 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
             * [Deactivate Team](#passivate-team)
             * [Add member to the team](#add-member-to-the-team)
             * [Remove member from the team](#remove-member-from-the-team)
+            * [Assign project to the team](#assign-project-to-the-team)
          * [Angular application](#angular-application)
       * [References and further reading](#references-and-further-reading)
 
@@ -227,6 +228,12 @@ $ curl  -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -
 
 ```bash
 $ curl  -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST  http://localhost:8080/api/teamcommands/<TEAM_ID>/removemembercommand/<MEMBER_ID>
+```
+
+#### Assign project to the team
+
+```bash
+$ curl  -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -X POST  http://localhost:8080/api/teamcommands/<TEAM_ID>/assigncommand/<PROJECT_ID>
 ```
 
 ### Angular application
