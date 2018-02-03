@@ -56,6 +56,8 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
 
 ## How it works
 
+![GitHub Logo](https://github.com/ivans-innovation-lab/my-company-monolith/raw/master/structurizr-36994-Components.png)
+
 The application is literally split into a *command-side (domain)* component and a *query-side (materialized view)* component (this is CQRS in its most literal form).
 
 Communication between the two components is `event-driven` and the demo uses simple event store (Database in this case - JPA) as a means of passing the [events](https://github.com/ivans-innovation-lab/my-company-common) between components.
@@ -72,7 +74,7 @@ The **query-side (materialized view)** is an event-listener and processor. It li
 - https://github.com/ivans-innovation-lab/my-company-project-materialized-view
 - https://github.com/ivans-innovation-lab/my-company-team-materialized-view
 
-This application have REST API's which can be used to access capabilities of a the domain and all materialized views.
+This application have REST API's which is used to access capabilities of the domain and all materialized views.
 
 ## Development
 
