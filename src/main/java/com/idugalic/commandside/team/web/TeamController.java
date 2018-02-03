@@ -58,7 +58,7 @@ public class TeamController {
 
     @RequestMapping(value = "/{id}/assigncommand/{projectId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public void update(@PathVariable String id, @PathVariable String projectId, @RequestBody AssignProjectToTeamRequest request) {
+    public void update(@PathVariable String id, @PathVariable String projectId) {
         AssignProjectToTeamCommand command = new AssignProjectToTeamCommand(createAudit(), id, projectId,"Reason");
         commandGateway.sendAndWait(command);
     }
