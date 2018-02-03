@@ -13,8 +13,7 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
       * [Running instructions](#running-instructions)
          * [Prerequisite](#prerequisite)
          * [Step 1: Clone the project](#step-1-clone-the-project)
-         * [Step 2: Build the project](#step-2-build-the-project)
-         * [Step 3: Run it](#step-3-run-it)
+         * [Step 2: Run it](#step-2-run-it)
          * [Issuing Commands &amp; Queries with CURL](#issuing-commands--queries-with-curl)
             * [Get the JWT token ](#get-the-jwt-token )
             * [Create Blog post](#create-blog-post)
@@ -95,7 +94,7 @@ This project is driven using [Maven][mvn].
 $ git clone https://github.com/ivans-innovation-lab/my-company-monolith.git
 ```
 
-#### Step 2: Build the project
+#### Step 2: Run it
 
 This application depends on other libraries (all available under http://maven.idugalic.pro/)
 
@@ -106,8 +105,6 @@ This application depends on other libraries (all available under http://maven.id
 - [my-company-project-materialized-view (**query-side**)](https://github.com/ivans-innovation-lab/my-company-project-materialized-view.git)
 - [my-company-team-materialized-view (**query-side**)](https://github.com/ivans-innovation-lab/my-company-team-materialized-view.git)
 
-
-#### Step 3: Run it
 
 ```bash
 $ cd my-company-monolith
