@@ -64,11 +64,13 @@ The **command-side (domain)** processes commands. Commands are actions which cha
 
 - https://github.com/ivans-innovation-lab/my-company-blog-domain
 - https://github.com/ivans-innovation-lab/my-company-project-domain
+- https://github.com/ivans-innovation-lab/my-company-team-domain
 
 The **query-side (materialized view)** is an event-listener and processor. It listens for the `Events` and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a *materialised view* which tracks the state of the individual agregates (Project, Blog, ...).
 
 - https://github.com/ivans-innovation-lab/my-company-blog-materialized-view
 - https://github.com/ivans-innovation-lab/my-company-project-materialized-view
+- https://github.com/ivans-innovation-lab/my-company-team-materialized-view
 
 This application have REST API's which can be used to access capabilities of a the domain and all materialized views.
 
@@ -88,23 +90,25 @@ This project is driven using [Maven][mvn].
 #### Step 1: Clone the project
 
 ```bash
-$ git clone https://github.com/ivans-innovation-lab/my-company-monolithic-web.git
+$ git clone https://github.com/ivans-innovation-lab/my-company-monolith.git
 ```
 
 #### Step 2: Build the project
 
-This application depends on other librariries (all available under http://maven.idugalic.pro/)
+This application depends on other libraries (all available under http://maven.idugalic.pro/)
 
 - [my-company-blog-domain (**command-side**)](https://github.com/ivans-innovation-lab/my-company-blog-domain.git)
 - [my-company-project-domain (**command-side**)](https://github.com/ivans-innovation-lab/my-company-project-domain.git)
+- [my-company-team-domain (**command-side**)](https://github.com/ivans-innovation-lab/my-company-team-domain.git)
 - [my-company-blog-materialized-view (**query-side**)](https://github.com/ivans-innovation-lab/my-company-blog-materialized-view.git)
 - [my-company-project-materialized-view (**query-side**)](https://github.com/ivans-innovation-lab/my-company-project-materialized-view.git)
+- [my-company-team-materialized-view (**query-side**)](https://github.com/ivans-innovation-lab/my-company-team-materialized-view.git)
 
 
 #### Step 3: Run it
 
 ```bash
-$ cd my-company-monolithic-web
+$ cd my-company-monolith
 $ ./mvnw clean install
 $ ./mvnw spring-boot:run
 ```
@@ -238,7 +242,7 @@ $ curl  -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -
 
 ### Angular application
 
-[Angular 4 application](https://github.com/ivans-innovation-lab/my-company-angular-fe) is a consumer of this API and represents the Front-end part of the solution.
+[Angular 5 application](https://github.com/ivans-innovation-lab/my-company-angular-fe) is a consumer of this API and represents the Front-end part of the solution.
 
 ## References and further reading
 
