@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,6 +25,6 @@ public class UserEventHandler {
     @HandleBeforeCreate
     public void handleUserSave(User user) {
         String pass = user.getPassword();
-        if (pass != null) user.setPassword(this.passwordEncoder.encodePassword(pass, null));
+        if (pass != null) user.setPassword(this.passwordEncoder.encode(pass));
     }
 }

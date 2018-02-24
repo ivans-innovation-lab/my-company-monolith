@@ -3,10 +3,13 @@ package com.idugalic.configuration;
 import java.lang.reflect.Method;
 
 import com.idugalic.security.domain.User;
-import org.springframework.boot.autoconfigure.web.WebMvcRegistrationsAdapter;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrationsAdapter;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
@@ -28,8 +31,12 @@ import com.idugalic.queryside.team.domain.Team;
  */
 @Configuration
 public class RestConfiguration extends RepositoryRestMvcConfiguration {
- 
-    
+
+
+    public RestConfiguration(ApplicationContext context, ObjectFactory<ConversionService> conversionService) {
+        super(context, conversionService);
+    }
+
     @Configuration
     static class RestConfigurationExposeId extends RepositoryRestConfigurerAdapter {
         @Override

@@ -21,10 +21,6 @@ logging:
     com.idugalic: DEBUG
     com.atomist.spring.agent: DEBUG
 
-security:
-  oauth2:
-    resource:
-      filter-order: 99
 
 spring:
   datasource:
@@ -36,9 +32,8 @@ spring:
     console:
       enabled: true
       path: /h2-console
-      
-flyway:
-  locations: db/migration/h2
+  flyway:
+    locations: classpath:db/migration/h2
 
 atomist:
   enabled: true
@@ -47,6 +42,13 @@ atomist:
   environment:
     domain: '${vcap.application.application_name:development}'
     pod: '${vcap.application.application_name:${random.value}}'
+
+security:
+  oauth2:
+    client:
+      client-id: 'testjwtclientid'
+      client-secret: '{bcrypt}$2a$10$wrqvFOPB2h1x3y00wRpEIuo6oMzi16215IxG2NMUli7bV7PGUPixK'
+
 
 ---
 spring:
@@ -65,7 +67,6 @@ spring:
     url: ${vcap.services.mysql.credentials.jdbcUrl}
     username: ${vcap.services.mysql.credentials.username}
     password: ${vcap.services.mysql.credentials.password}
-    
-flyway:
-  locations: db/migration/mysql
+  flyway:
+    locations: classpath:db.migration/mysql
 
