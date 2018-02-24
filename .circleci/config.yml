@@ -44,6 +44,7 @@ jobs:
           command: |
             mkdir -p artifacts/
             cp pom.xml artifacts/
+            cp .circleci/maven.settings.xml artifacts/
             find . -type f -regex ".*/target/.*jar" -exec cp {} artifacts/ \;
      
       - store_artifacts:
@@ -62,7 +63,7 @@ jobs:
           at: workspace/
       - deploy: 
           name: Deploy maven artifact
-          command: mvn -s .circleci/maven.settings.xml deploy:deploy-file -DrepositoryId=idugalic-snapshots -DpomFile=workspace/pom.xml -Dfile=worksapce/my-company-monolith-1.0.1-SNAPSHOT.jar -Durl=http://maven.idugalic.pro/artifactory/local-repository \;
+          command: mvn -s workspace/maven.settings.xml deploy:deploy-file -DrepositoryId=idugalic-snapshots -DpomFile=workspace/pom.xml -Dfile=worksapce/my-company-monolith-1.0.1-SNAPSHOT.jar -Durl=http://maven.idugalic.pro/artifactory/local-repository \;
 
             
   # Deploying build artifact on staging environment for testing.
