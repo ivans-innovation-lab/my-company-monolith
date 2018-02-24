@@ -209,7 +209,7 @@ workflows:
   my-company-monolith-workflow:
     jobs:
       - build
-      - deploy
+      - deploy:
           requires:
             - build
           filters:
