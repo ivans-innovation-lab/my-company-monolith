@@ -63,7 +63,7 @@ jobs:
           at: workspace/
       - deploy: 
           name: Deploy maven artifact
-          command: mvn -s workspace/maven.settings.xml deploy:deploy-file -DrepositoryId=idugalic-snapshots -DpomFile=workspace/pom.xml -Dfile=worksapce/my-company-monolith-1.0.1-SNAPSHOT.jar -Durl=http://maven.idugalic.pro/artifactory/local-repository \;
+          command: mvn -s ./workspace/maven.settings.xml deploy:deploy-file -DrepositoryId=idugalic-snapshots -DpomFile=./workspace/pom.xml -Dfile=./worksapce/my-company-monolith-1.0.1-SNAPSHOT.jar -Durl=http://maven.idugalic.pro/artifactory/local-repository \;
 
             
   # Deploying build artifact on staging environment for testing.
@@ -218,7 +218,7 @@ workflows:
               only: master
       - staging:
           requires:
-            - build
+            - deploy
           filters:
             branches:
               only: master
@@ -243,7 +243,6 @@ workflows:
       - approve-production:
           type: approval
           requires:
-            - staging-e2e
             - staging-prod-e2e
           filters:
             branches:
