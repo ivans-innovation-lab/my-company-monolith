@@ -88,7 +88,8 @@ public class TeamController {
     @RequestMapping(value = "/{id}/removemembercommand/{memberId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public void removeMember(@PathVariable String id, @PathVariable String memberId) {
-        RemoveMemberFromTeamCommand command = new RemoveMemberFromTeamCommand(createAudit(), id, memberId);
+    	    Member member = new Member(memberId, null, null, null);
+        RemoveMemberFromTeamCommand command = new RemoveMemberFromTeamCommand(createAudit(), id, member);
         commandGateway.sendAndWait(command);
     }
    
