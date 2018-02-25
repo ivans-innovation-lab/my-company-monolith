@@ -54,19 +54,8 @@ jobs:
           root: artifacts/
           paths:
             - .
-  
-  # Deploying build artifact on maven repository.
-  deploy:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: workspace/
-      - deploy: 
-          name: Deploy maven artifact
-          command: cd workspace/ && find . -type f -regex ".*jar" -exec mvn -s maven.settings.xml deploy:deploy-file -DrepositoryId=idugalic-snapshots -DpomFile=pom.xml -Dfile={} -Durl=http://maven.idugalic.pro/artifactory/local-repository \;
-
-            
-  # Deploying build artifact on staging environment for testing.
+   
+  # Deploying build artifact on PWS staging environment for testing.
   staging:
     <<: *defaults
     steps:
@@ -88,8 +77,8 @@ jobs:
             cf bind-service stage-my-company-monolith mysql
             cf restart stage-my-company-monolith
   
-  # Deploying current production on staging environemnt for DB schema backward compatibility testing.
-  staging-prod:
+  # Deploying current/old production on PWS staging environemnt for DB schema backward compatibility testing.
+  production-on-staging:
     <<: *defaults
     steps:
       - attach_workspace:
@@ -131,7 +120,7 @@ jobs:
             fi 
 
   
-  # A very simple e2e test on staging environemnt
+  # A very simple e2e test on PWS staging environemnt
   staging-e2e:
     <<: *defaults
     steps:
@@ -142,9 +131,8 @@ jobs:
             curl -I "https://stage-my-company-monolith.cfapps.io/api/blogposts"
             curl -I "https://stage-my-company-monolith.cfapps.io/api/projects"
       
-  # A very simple e2e test of the currnet production application on staging environment.
-  # DB schema backward compatibility testing. Testing if the latest DB schema is compatible with latest production application.
-  staging-prod-e2e:
+  # Testing if the latest DB schema is compatible with latest production application (DB schema backward compatibility testing).
+  production-on-staging-e2e:
     <<: *defaults
     steps: 
       - run: 
@@ -154,8 +142,8 @@ jobs:
             curl -I "https://stage-my-company-monolith-prod.cfapps.io/api/blogposts"
             curl -I "https://stage-my-company-monolith-prod.cfapps.io/api/projects"
               
-  # Deploying build artifact on production environment with Blue-Green deployment strategy and the rollback posibility.
-  # Artifact is uploaded to AWS s3 as the latest production artifact as well. It is used within 'staging-prod' and 'staging-prod-e2e' jobs to test DB schema backward compatibility
+  # Deploying build artifact on PWS production environment with Blue-Green deployment strategy and the rollback option.
+  # Build artifact is uploaded to AWS s3 as the latest production artifact in this stage. It is used within 'production-on-staging' and 'production-on-staging-e2e' jobs to test DB schema backward compatibility
   production:
     <<: *defaults
     steps:
@@ -202,7 +190,6 @@ jobs:
           
 notify:
   webhooks:
-  # A list of hashes representing hooks. Only the url field is supported.
     - url: https://webhook.atomist.com/atomist/circle
   
 workflows:
@@ -210,12 +197,6 @@ workflows:
   my-company-monolith-workflow:
     jobs:
       - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
       - staging:
           requires:
             - build
@@ -228,22 +209,22 @@ workflows:
           filters:
             branches:
               only: master
-      - staging-prod:
+      - production-on-staging:
           requires:
             - staging-e2e
           filters:
             branches:
               only: master
-      - staging-prod-e2e:
+      - production-on-staging-e2e:
           requires:
-            - staging-prod
+            - production-on-staging
           filters:
             branches:
               only: master
       - approve-production:
           type: approval
           requires:
-            - staging-prod-e2e
+            - production-on-staging-e2e
           filters:
             branches:
               only: master
