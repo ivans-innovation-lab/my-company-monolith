@@ -61,5 +61,5 @@ spring:
     password: ${vcap.services.mysql.credentials.password}
     
   flyway:
-    locations: classpath:db.migration/mysql
+    locations: classpath:db/migration/mysql
 
