@@ -43,13 +43,6 @@ atomist:
     domain: '${vcap.application.application_name:development}'
     pod: '${vcap.application.application_name:${random.value}}'
 
-security:
-  oauth2:
-    client:
-      client-id: 'testjwtclientid'
-      client-secret: '{bcrypt}$2a$10$wrqvFOPB2h1x3y00wRpEIuo6oMzi16215IxG2NMUli7bV7PGUPixK'
-
-
 ---
 spring:
   profiles: cloud
@@ -57,16 +50,16 @@ spring:
     database:
     show-sql: true
     hibernate:
-      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
       ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     url: ${vcap.services.mysql.credentials.jdbcUrl}
     username: ${vcap.services.mysql.credentials.username}
     password: ${vcap.services.mysql.credentials.password}
+    
   flyway:
     locations: classpath:db.migration/mysql
 
