@@ -50,10 +50,12 @@ spring:
     database:
     show-sql: true
     hibernate:
+      use-new-id-generator-mappings: false
       ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
+
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: ${vcap.services.mysql.credentials.jdbcUrl}
