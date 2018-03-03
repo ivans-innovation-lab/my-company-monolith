@@ -93,17 +93,17 @@ public class ApplicationIntegrationTest {
 
     }
 
-//    @Test
-//    public void createProjectWithSuccess() throws Exception {
-//
-//        HttpEntity<CreateProjectRequest> request = new HttpEntity<>(createProjectRequest);
-//
-//        ResponseEntity<String> response = outh2RestTemplate.exchange(format("http://localhost:%d/api/projectcommands", port), HttpMethod.POST, request, String.class);
-//        System.out.println("################ " + response.getBody());
-//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-//
-//    }
+    @Test
+    public void createProjectWithSuccess() throws Exception {
 
+        HttpEntity<CreateProjectRequest> request = new HttpEntity<>(createProjectRequest);
+
+        ResponseEntity<String> response = outh2RestTemplate.exchange(format("http://localhost:%d/api/projectcommands", port), HttpMethod.POST, request, String.class);
+        System.out.println("################ " + response.getBody());
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+
+    }
+//
 //    @Test
 //    public void createBlogPostWithValidationErrorTitleIsMandatory() throws Exception {
 //

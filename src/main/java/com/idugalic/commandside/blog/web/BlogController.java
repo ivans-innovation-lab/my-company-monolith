@@ -23,7 +23,7 @@ import java.security.Principal;
  * @author idugalic
  */
 @RestController
-@RequestMapping(value = "/blogpostcommands")
+@RequestMapping(value = "/api/blogpostcommands")
 public class BlogController {
 
     private static final Logger LOG = LoggerFactory.getLogger(BlogController.class);

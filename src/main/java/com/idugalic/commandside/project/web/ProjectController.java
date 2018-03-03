@@ -31,7 +31,7 @@ import com.idugalic.common.model.AuditEntry;
  *
  */
 @RestController
-@RequestMapping(value = "/projectcommands")
+@RequestMapping(value = "/api/projectcommands")
 public class ProjectController {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProjectController.class);

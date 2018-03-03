@@ -18,13 +18,13 @@ import org.springframework.stereotype.Component;
 public class UserEventHandler {
 
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @HandleBeforeSave
     @HandleBeforeCreate
     public void handleUserSave(User user) {
-        String pass = user.getPassword();
-        if (pass != null) user.setPassword(this.passwordEncoder.encode(pass));
+//        String pass = user.getPassword();
+//        if (pass != null) user.setPassword(this.passwordEncoder.encode(pass));
     }
 }
