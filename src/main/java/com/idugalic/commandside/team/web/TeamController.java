@@ -28,7 +28,7 @@ import com.idugalic.common.team.model.Member;
  *
  */
 @RestController
-@RequestMapping(value = "/teamcommands")
+@RequestMapping(value = "/api/teamcommands")
 public class TeamController {
     
     private CommandGateway commandGateway;

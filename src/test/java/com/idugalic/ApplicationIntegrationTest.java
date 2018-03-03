@@ -103,7 +103,7 @@ public class ApplicationIntegrationTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
     }
-
+//
 //    @Test
 //    public void createBlogPostWithValidationErrorTitleIsMandatory() throws Exception {
 //
