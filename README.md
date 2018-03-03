@@ -13,8 +13,7 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
       * [Running instructions](#running-instructions)
          * [Prerequisite](#prerequisite)
          * [Step 1: Clone the project](#step-1-clone-the-project)
-         * [Step 2: Build the project](#step-2-build-the-project)
-         * [Step 3: Run it](#step-3-run-it)
+         * [Step 2: Run it](#step-2-run-it)
          * [Issuing Commands &amp; Queries with CURL](#issuing-commands--queries-with-curl)
             * [Get the JWT token ](#get-the-jwt-token )
             * [Create Blog post](#create-blog-post)
@@ -56,6 +55,8 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
 
 ## How it works
 
+![GitHub Logo](https://github.com/ivans-innovation-lab/my-company-monolith/raw/master/structurizr-36994-Components.png)
+
 The application is literally split into a *command-side (domain)* component and a *query-side (materialized view)* component (this is CQRS in its most literal form).
 
 Communication between the two components is `event-driven` and the demo uses simple event store (Database in this case - JPA) as a means of passing the [events](https://github.com/ivans-innovation-lab/my-company-common) between components.
@@ -72,7 +73,7 @@ The **query-side (materialized view)** is an event-listener and processor. It li
 - https://github.com/ivans-innovation-lab/my-company-project-materialized-view
 - https://github.com/ivans-innovation-lab/my-company-team-materialized-view
 
-This application have REST API's which can be used to access capabilities of a the domain and all materialized views.
+This application have REST API's which is used to access capabilities of the domain and all materialized views.
 
 ## Development
 
@@ -93,7 +94,7 @@ This project is driven using [Maven][mvn].
 $ git clone https://github.com/ivans-innovation-lab/my-company-monolith.git
 ```
 
-#### Step 2: Build the project
+#### Step 2: Run it
 
 This application depends on other libraries (all available under http://maven.idugalic.pro/)
 
@@ -104,8 +105,6 @@ This application depends on other libraries (all available under http://maven.id
 - [my-company-project-materialized-view (**query-side**)](https://github.com/ivans-innovation-lab/my-company-project-materialized-view.git)
 - [my-company-team-materialized-view (**query-side**)](https://github.com/ivans-innovation-lab/my-company-team-materialized-view.git)
 
-
-#### Step 3: Run it
 
 ```bash
 $ cd my-company-monolith
@@ -254,5 +253,14 @@ $ curl  -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -
   * http://www.axonframework.org
   * http://www.kennybastani.com/2016/04/event-sourcing-microservices-spring-cloud.html
   * https://benwilcock.wordpress.com/2016/06/20/microservices-with-spring-boot-axon-cqrses-and-docker/
+
+  ---
+Created by [Ivan Dugalic][idugalic]@[lab][lab].
+Need Help?  [Join our Slack team][slack].
+
+[idugalic]: http://idugalic.pro
+[lab]: http://lab.idugalic.pro
+[slack]: https://communityinviter.com/apps/idugalic/idugalic
+
   
 
