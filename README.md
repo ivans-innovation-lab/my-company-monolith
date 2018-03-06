@@ -1,7 +1,7 @@
 # [projects](http://ivans-innovation-lab.github.io/projects)/my-company-monolith [![CircleCI](https://circleci.com/gh/ivans-innovation-lab/my-company-monolith.svg?style=svg)](https://circleci.com/gh/ivans-innovation-lab/my-company-monolith)
 This version of the application is deployed as a single monolithic application. 
 
-Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourcing enables deployment flexibility - the application can be migrated and deployed as a microservices.
+Domain Driven Design is applied through Event Sourcing and CQRS.
 
 ## Table of Contents
 
